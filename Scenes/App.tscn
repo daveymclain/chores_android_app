@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/Undo.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/Button.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/CheckUI.gd" type="Script" id=9]
+[ext_resource path="res://icon.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -19,6 +20,18 @@ size = 50
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 60
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 60
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 60
 font_data = ExtResource( 6 )
 
@@ -36,9 +49,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UI" type="Node2D" parent="."]
+[node name="GroundFloor" type="Node2D" parent="."]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+[node name="UI" type="Node2D" parent="GroundFloor"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GroundFloor/UI"]
 margin_right = 576.0
 margin_bottom = 100.0
 alignment = 2
@@ -46,22 +61,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GroundFloor/UI/HBoxContainer"]
 margin_left = 410.0
 margin_right = 576.0
 margin_bottom = 100.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 
-[node name="Button" type="Button" parent="UI/HBoxContainer/MarginContainer"]
+[node name="Button" type="Button" parent="GroundFloor/UI/HBoxContainer/MarginContainer"]
 margin_top = 20.0
 margin_right = 146.0
 margin_bottom = 100.0
 custom_fonts/font = SubResource( 1 )
 text = "Undo"
 script = ExtResource( 8 )
-
-[node name="GroundFloor" type="Node2D" parent="."]
 
 [node name="GroundFloors" type="Sprite" parent="GroundFloor"]
 texture = ExtResource( 1 )
@@ -74,8 +87,8 @@ script = ExtResource( 2 )
 clean_frequency = {
 "days": 0,
 "hours": 0,
-"mins": 0,
-"secs": 10
+"mins": 1,
+"secs": 0
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea\'s/LivingRoomHoover"]
@@ -100,7 +113,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+[node name="Row 1" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
 margin_right = 576.0
 margin_bottom = 125.0
 alignment = 1
@@ -108,7 +121,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CheckUI/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="CheckUI/VBoxContainer/Row 1"]
 margin_left = 86.0
 margin_right = 489.0
 margin_bottom = 125.0
@@ -119,7 +132,7 @@ text = "Do you want to
 clean?"
 align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+[node name="Row 2" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
 margin_top = 141.0
 margin_right = 576.0
 margin_bottom = 220.0
@@ -129,7 +142,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Yes" type="Button" parent="CheckUI/VBoxContainer/HBoxContainer"]
+[node name="Yes" type="Button" parent="CheckUI/VBoxContainer/Row 2"]
 margin_left = 113.0
 margin_right = 263.0
 margin_bottom = 79.0
@@ -137,7 +150,7 @@ rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 3 )
 text = "Yes"
 
-[node name="No" type="Button" parent="CheckUI/VBoxContainer/HBoxContainer"]
+[node name="No" type="Button" parent="CheckUI/VBoxContainer/Row 2"]
 margin_left = 313.0
 margin_right = 463.0
 margin_bottom = 79.0
@@ -145,15 +158,232 @@ rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 3 )
 text = "No"
 
+[node name="Row 3" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+margin_top = 236.0
+margin_right = 576.0
+margin_bottom = 315.0
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Button" parent="CheckUI/VBoxContainer/Row 3"]
+margin_left = 153.0
+margin_right = 422.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = SubResource( 3 )
+text = "Settings"
+
 [node name="Settings" type="Node2D" parent="."]
+position = Vector2( -700, 0 )
 script = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+margin_right = 576.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Row 1" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 149.0
+
+[node name="TaskText" type="Label" parent="Settings/VBoxContainer/Row 1"]
+margin_right = 576.0
+margin_bottom = 149.0
+rect_min_size = Vector2( 576, 0 )
+custom_fonts/font = SubResource( 5 )
+text = "Living Room
+Hoover"
+align = 1
+
+[node name="Row Days" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 153.0
+margin_right = 576.0
+margin_bottom = 358.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Days"]
+margin_right = 576.0
+margin_bottom = 205.0
+
+[node name="DaysText" type="Label" parent="Settings/VBoxContainer/Row Days/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 576, 0 )
+custom_fonts/font = SubResource( 5 )
+text = "0"
+align = 1
+
+[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Days/VBoxContainer"]
+margin_top = 77.0
+margin_right = 576.0
+margin_bottom = 205.0
+custom_constants/separation = 19
+alignment = 1
+
+[node name="Days" type="Label" parent="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3"]
+margin_left = 27.0
+margin_top = 33.0
+margin_right = 180.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 153, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Days"
+
+[node name="DaySlider" type="HSlider" parent="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3"]
+margin_left = 199.0
+margin_right = 549.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 350, 50 )
+custom_icons/grabber_highlight = ExtResource( 10 )
+custom_icons/grabber = ExtResource( 10 )
+max_value = 28.0
+tick_count = 1
+
+[node name="Row Hours" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 362.0
+margin_right = 576.0
+margin_bottom = 567.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Hours"]
+margin_right = 576.0
+margin_bottom = 205.0
+
+[node name="HoursText" type="Label" parent="Settings/VBoxContainer/Row Hours/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 576, 0 )
+custom_fonts/font = SubResource( 5 )
+text = "0"
+align = 1
+
+[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Hours/VBoxContainer"]
+margin_top = 77.0
+margin_right = 576.0
+margin_bottom = 205.0
+custom_constants/separation = 19
+alignment = 1
+
+[node name="Hours" type="Label" parent="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3"]
+margin_left = 27.0
+margin_top = 33.0
+margin_right = 180.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 153, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Hours"
+
+[node name="HoursSlider" type="HSlider" parent="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3"]
+margin_left = 199.0
+margin_right = 549.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 350, 50 )
+custom_icons/grabber_highlight = ExtResource( 10 )
+custom_icons/grabber = ExtResource( 10 )
+
+[node name="Row Mins" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 571.0
+margin_right = 576.0
+margin_bottom = 776.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Mins"]
+margin_right = 576.0
+margin_bottom = 205.0
+
+[node name="MinsText" type="Label" parent="Settings/VBoxContainer/Row Mins/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 576, 0 )
+custom_fonts/font = SubResource( 5 )
+text = "0"
+align = 1
+
+[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Mins/VBoxContainer"]
+margin_top = 77.0
+margin_right = 576.0
+margin_bottom = 205.0
+custom_constants/separation = 19
+alignment = 1
+
+[node name="Mins" type="Label" parent="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3"]
+margin_left = 27.0
+margin_top = 33.0
+margin_right = 180.0
+margin_bottom = 94.0
+rect_min_size = Vector2( 153, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Mins"
+
+[node name="MinsSlider" type="HSlider" parent="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3"]
+margin_left = 199.0
+margin_right = 549.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 350, 50 )
+custom_icons/grabber_highlight = ExtResource( 10 )
+custom_icons/grabber = ExtResource( 10 )
+
+[node name="Row Time Left" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 780.0
+margin_right = 576.0
+margin_bottom = 982.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Time Left"]
+margin_right = 576.0
+margin_bottom = 202.0
+
+[node name="Time left Heading" type="Label" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 576, 0 )
+custom_fonts/font = SubResource( 5 )
+text = "Time Left"
+align = 1
+
+[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer"]
+margin_top = 77.0
+margin_right = 576.0
+margin_bottom = 202.0
+custom_constants/separation = 19
+alignment = 1
+
+[node name="TimeLeftText" type="Label" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer/Row 3"]
+margin_left = 88.0
+margin_right = 488.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "1 Day 3 hours
+43 Secs"
+align = 1
+autowrap = true
+
+[node name="Row Exit" type="HBoxContainer" parent="Settings/VBoxContainer"]
+margin_top = 986.0
+margin_right = 576.0
+margin_bottom = 1065.0
+alignment = 1
+
+[node name="Exit" type="Button" parent="Settings/VBoxContainer/Row Exit"]
+margin_left = 224.0
+margin_right = 352.0
+margin_bottom = 79.0
+custom_fonts/font = SubResource( 6 )
+text = "Exit"
 
 [node name="Methods" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
 [node name="Undo" type="Node2D" parent="."]
 script = ExtResource( 7 )
-[connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
+[connection signal="pressed" from="GroundFloor/UI/HBoxContainer/MarginContainer/Button" to="GroundFloor/UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
 [connection signal="input_event" from="GroundFloor/CleaningArea's/LivingRoomHoover" to="GroundFloor/CleaningArea's/LivingRoomHoover" method="_on_LivingRoomHoover_input_event"]
-[connection signal="pressed" from="CheckUI/VBoxContainer/HBoxContainer/Yes" to="CheckUI" method="_on_Yes_pressed"]
-[connection signal="pressed" from="CheckUI/VBoxContainer/HBoxContainer/No" to="CheckUI" method="_on_No_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3/MinsSlider" to="Settings" method="_on_MinsSlider_value_changed"]
+[connection signal="pressed" from="Settings/VBoxContainer/Row Exit/Exit" to="Settings" method="_on_Exit_pressed"]

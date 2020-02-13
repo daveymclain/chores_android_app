@@ -1,15 +1,15 @@
 extends Node2D
 
-func conver_sec(days, hours, mins, seconds):
+func conver_sec(list):
 	var total = 0
-	if days > 1:
-		total += days * 86400
-	if hours > 0:
-		total += hours * 3600
-	if mins > 0:
-		total += mins * 60
+	if list["days"] > 1:
+		total += list["days"]  * 86400
+	if list["hours"] > 0:
+		total += list["hours"] * 3600
+	if list["mins"] > 0:
+		total += list["mins"] * 60
 	
-	return total + seconds
+	return total + list["secs"]
 	
 func convert_percent_to_alpha(percent, alpha_limit):
 	if percent < 100:
@@ -24,8 +24,9 @@ func dirt_test(sec, time_start, dirt_limit):
 	var percent = 0
 	var percent_complete = 0
 	
-	percent = float(sec) / 100
-
+	percent = float(sec) / 100		
+	
 	percent_complete =  elapsed / percent
+	print(percent_complete, "%")
 
 	return convert_percent_to_alpha(percent_complete, dirt_limit)
