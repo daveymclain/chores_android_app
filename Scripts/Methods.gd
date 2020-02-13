@@ -27,6 +27,5 @@ func dirt_test(sec, time_start, dirt_limit):
 	percent = float(sec) / 100
 
 	percent_complete =  elapsed / percent
-	print(percent_complete, "%")
-		
+
 	return convert_percent_to_alpha(percent_complete, dirt_limit)

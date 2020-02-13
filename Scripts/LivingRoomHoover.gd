@@ -3,6 +3,7 @@ extends Area2D
 
 # limit of transparancy
 export var dirt_limit = 0.8
+onready var node_check = get_node("/root/App/CheckUI")
 
 # how often to clean days/hours
 export var clean_frequency = {"days" : 0, "hours" : 0, "mins" : 0, "secs" : 10}
@@ -19,12 +20,19 @@ func _ready():
 func _process(delta):
 	dirt_node.modulate.a = Methods.dirt_test(Methods.conver_sec(
 		clean_frequency["days"], 
-		clean_frequency["hours"], clean_frequency["mins"], 
-		clean_frequency["secs"]), time_start, dirt_limit)
+		clean_frequency["hours"], 
+		clean_frequency["mins"], 
+		clean_frequency["secs"]), 
+		time_start, dirt_limit)
 
 
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
 func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
-		time_start = OS.get_unix_time()
+		
+		node_check.position = Vector2(0, 0)
+		node_check.node_testing = self
+		
+
+		
