@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/kitchen_floor_dirt.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
+
+[node name="LivingRoomHoover" type="Area2D"]
+script = ExtResource( 2 )
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 26.6427, 333.414, 336.521, 331.521, 339.046, 574.501, 150.657, 577.657, 150.973, 529.061, 26.0116, 529.692 )
+[connection signal="input_event" from="." to="." method="_on_LivingRoomHoover_input_event"]

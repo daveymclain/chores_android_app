@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Scripts/Button.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/CheckUI.gd" type="Script" id=9]
 [ext_resource path="res://icon.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/kitchen_floor_dirt.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/hallway_floor_dirt.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -82,8 +84,10 @@ centered = false
 
 [node name="CleaningArea\'s" type="Node2D" parent="GroundFloor"]
 
-[node name="LivingRoomHoover" type="Area2D" parent="GroundFloor/CleaningArea\'s"]
+[node name="Kitchen_hover" type="Area2D" parent="GroundFloor/CleaningArea\'s"]
 script = ExtResource( 2 )
+task_name = "Kitchen 
+Hoover"
 clean_frequency = {
 "days": 0,
 "hours": 0,
@@ -91,13 +95,48 @@ clean_frequency = {
 "secs": 0
 }
 
-[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea\'s/LivingRoomHoover"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea\'s/Kitchen_hover"]
+texture = ExtResource( 11 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea\'s/Kitchen_hover"]
+polygon = PoolVector2Array( 26.6427, 333.414, 336.521, 331.521, 339.046, 574.501, 150.657, 577.657, 150.973, 529.061, 26.0116, 529.692 )
+
+[node name="Living Room_hover" type="Area2D" parent="GroundFloor/CleaningArea\'s"]
+script = ExtResource( 2 )
+task_name = "Living Room 
+Hoover"
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea\'s/Living Room_hover"]
 texture = ExtResource( 3 )
 centered = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea\'s/LivingRoomHoover"]
-polygon = PoolVector2Array( 349.609, 330.125, 547.266, 329.313, 548.927, 892.948, 280.78, 890.08, 287.232, 861.401, 234.893, 766.761, 241.346, 589.669, 345.307, 588.952, 346.741, 450.577 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea\'s/Living Room_hover"]
+polygon = PoolVector2Array( 281.382, 887.26, 550.251, 888.262, 550.92, 329.023, 350.032, 331.359, 347.696, 586.558, 236.156, 587.142, 234.404, 759.415, 281.706, 858.691 )
+
+[node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea\'s"]
+script = ExtResource( 2 )
+task_name = "Hallway 
+Hoover"
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea\'s/Hallway_hoover"]
+texture = ExtResource( 12 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea\'s/Hallway_hoover"]
+polygon = PoolVector2Array( 149.755, 765.519, 223.519, 765.287, 270.84, 862.481, 271.072, 887.533, 149.987, 889.852 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1000 )
@@ -381,7 +420,9 @@ script = ExtResource( 5 )
 [node name="Undo" type="Node2D" parent="."]
 script = ExtResource( 7 )
 [connection signal="pressed" from="GroundFloor/UI/HBoxContainer/MarginContainer/Button" to="GroundFloor/UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
-[connection signal="input_event" from="GroundFloor/CleaningArea's/LivingRoomHoover" to="GroundFloor/CleaningArea's/LivingRoomHoover" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea's/Kitchen_hover" to="GroundFloor/CleaningArea's/Kitchen_hover" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea's/Living Room_hover" to="GroundFloor/CleaningArea's/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea's/Hallway_hoover" to="GroundFloor/CleaningArea's/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
