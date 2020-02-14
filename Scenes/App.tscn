@@ -283,6 +283,7 @@ margin_bottom = 128.0
 rect_min_size = Vector2( 350, 50 )
 custom_icons/grabber_highlight = ExtResource( 10 )
 custom_icons/grabber = ExtResource( 10 )
+max_value = 24.0
 
 [node name="Row Mins" type="HBoxContainer" parent="Settings/VBoxContainer"]
 margin_top = 571.0
@@ -324,6 +325,7 @@ margin_bottom = 128.0
 rect_min_size = Vector2( 350, 50 )
 custom_icons/grabber_highlight = ExtResource( 10 )
 custom_icons/grabber = ExtResource( 10 )
+max_value = 60.0
 
 [node name="Row Time Left" type="HBoxContainer" parent="Settings/VBoxContainer"]
 margin_top = 780.0

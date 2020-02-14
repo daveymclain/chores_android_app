@@ -2,6 +2,9 @@ extends Node2D
 
 var node = null
 
+func _process(delta):
+	if node:
+		update_time_left()
 
 func _on_Settings_pressed():
 	get_node("/root/App/GroundFloor").position = Vector2(-700, 0)
@@ -22,7 +25,10 @@ func _on_Settings_pressed():
 	update_time_left()
 
 func update_time_left():
-	find_node("TimeLeftText").text = str(node.clean_frequency)
+	var time_left = Methods.time_left(Methods.dirt_test(node.clean_frequency, 
+		node.time_start, node.dirt_limit)[2])
+	var output_string = "Day: %02d\n Hour: %02d\n Min %02d" % time_left
+	find_node("TimeLeftText").text = str(output_string)
 
 func _on_DaySlider_value_changed(value):
 	node.clean_frequency["days"] = int(value)
