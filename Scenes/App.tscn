@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/kitchen_floor_dirt.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/hallway_floor_dirt.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/ZoomIn.gd" type="Script" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -51,11 +52,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GroundFloor" type="Node2D" parent="."]
+[node name="UI" type="Node2D" parent="."]
 
-[node name="UI" type="Node2D" parent="GroundFloor"]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GroundFloor/UI"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
 margin_right = 576.0
 margin_bottom = 100.0
 alignment = 2
@@ -63,20 +62,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="GroundFloor/UI/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/HBoxContainer"]
+margin_left = 132.0
+margin_right = 406.0
+margin_bottom = 100.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+
+[node name="Zoomout" type="Button" parent="UI/HBoxContainer/MarginContainer2"]
+margin_top = 20.0
+margin_right = 254.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 1 )
+text = "Zoom out"
+script = ExtResource( 13 )
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer"]
 margin_left = 410.0
 margin_right = 576.0
 margin_bottom = 100.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 
-[node name="Button" type="Button" parent="GroundFloor/UI/HBoxContainer/MarginContainer"]
+[node name="Button" type="Button" parent="UI/HBoxContainer/MarginContainer"]
 margin_top = 20.0
 margin_right = 146.0
 margin_bottom = 100.0
 custom_fonts/font = SubResource( 1 )
 text = "Undo"
 script = ExtResource( 8 )
+
+[node name="GroundFloor" type="Node2D" parent="."]
+position = Vector2( -250, -200 )
+scale = Vector2( 1.4, 1.4 )
 
 [node name="GroundFloors" type="Sprite" parent="GroundFloor"]
 texture = ExtResource( 1 )
@@ -106,6 +124,10 @@ polygon = PoolVector2Array( 26.6427, 333.414, 336.521, 331.521, 339.046, 574.501
 script = ExtResource( 2 )
 task_name = "Living Room 
 Hoover"
+zoom_settings = {
+"position": Vector2( -250, -200 ),
+"scale": Vector2( 1.4, 1.4 )
+}
 clean_frequency = {
 "days": 0,
 "hours": 0,
@@ -214,6 +236,24 @@ margin_bottom = 79.0
 rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 3 )
 text = "Settings"
+
+[node name="Row 4" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+margin_top = 331.0
+margin_right = 576.0
+margin_bottom = 410.0
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Zoom" type="Button" parent="CheckUI/VBoxContainer/Row 4"]
+margin_left = 197.0
+margin_right = 378.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = SubResource( 3 )
+text = "Zoom"
 
 [node name="Settings" type="Node2D" parent="."]
 position = Vector2( -700, 0 )
@@ -419,13 +459,15 @@ script = ExtResource( 5 )
 
 [node name="Undo" type="Node2D" parent="."]
 script = ExtResource( 7 )
-[connection signal="pressed" from="GroundFloor/UI/HBoxContainer/MarginContainer/Button" to="GroundFloor/UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
 [connection signal="input_event" from="GroundFloor/CleaningArea's/Kitchen_hover" to="GroundFloor/CleaningArea's/Kitchen_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea's/Living Room_hover" to="GroundFloor/CleaningArea's/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea's/Hallway_hoover" to="GroundFloor/CleaningArea's/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 4/Zoom" to="CheckUI" method="_on_Zoom_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3/MinsSlider" to="Settings" method="_on_MinsSlider_value_changed"]

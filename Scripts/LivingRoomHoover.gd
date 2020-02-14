@@ -5,7 +5,7 @@ extends Area2D
 export var task_name = "Living room \nHoover"
 export var dirt_limit = 0.8
 onready var node_check = get_node("/root/App/CheckUI")
-
+export var zoom_settings = {"position": Vector2(0, -100), "scale": Vector2(1.6, 1.6)}
 var active = true
 # how often to clean days/hours
 export var clean_frequency = {"days" : 0, "hours" : 0, "mins" : 1, "secs" : 0}
