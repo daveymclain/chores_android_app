@@ -35,13 +35,6 @@ func _on_DaySlider_value_changed(value):
 	find_node("DaysText").text = str(value)
 
 
-
-func _on_Exit_pressed():
-	self.position = Vector2(-700, 0)
-	get_node("/root/App/GroundFloor").position = Vector2(0, 0)
-	get_node("/root/App/UI").visible = true
-
-
 func _on_HoursSlider_value_changed(value):
 	node.clean_frequency["hours"] = int(value)
 	find_node("HoursText").text = str(value)
@@ -50,3 +43,10 @@ func _on_HoursSlider_value_changed(value):
 func _on_MinsSlider_value_changed(value):
 	node.clean_frequency["mins"] = int(value)
 	find_node("MinsText").text = str(value)
+
+
+func _on_Exit_pressed():
+	self.position = Vector2(-700, 0)
+	get_node("/root/App/GroundFloor").position = Vector2(0, 0)
+	get_node("/root/App/UI").visible = true
+	Save.save_app()
