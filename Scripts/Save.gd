@@ -46,6 +46,7 @@ func load_app():
 			if i == "filename" or i == "parent" or i == "node":
 				continue			
 			node.set(i, node_data[i])
+			print(node_data[i])
 	
 
 	save_game.close()

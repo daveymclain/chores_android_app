@@ -17,6 +17,7 @@ func _ready():
 	time_start = OS.get_unix_time()
 	set_process(true)
 	add_to_group("Persist")
+	print("start up clean settings = ", clean_frequency)
 
 	
 # warning-ignore:unused_argument
