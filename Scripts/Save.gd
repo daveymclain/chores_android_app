@@ -25,7 +25,7 @@ func load_app():
 	if not save_game.file_exists("user://savegame.save"):
 		return # Error! We don't have a save to load.
 		print("Error no save to load. Saving")
-		Save.save_app()
+		save_app()
 
 	# We need to revert the game state so we're not cloning objects
 	# during loading. This will vary wildly depending on the needs of a

@@ -3,7 +3,7 @@ extends Node2D
 var node = null
 
 func _process(delta):
-	if node:
+	if not node == null:
 		update_time_left()
 
 func _on_Settings_pressed():

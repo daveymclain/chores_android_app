@@ -12,7 +12,7 @@ func conver_sec(list):
 	return total + list["secs"]
 	
 func time_left(sec_left):
-	var mins = sec_left / 60
+	var mins = int(sec_left) / 60
 	var hours = mins / 60
 	var days_total = hours / 24
 	
