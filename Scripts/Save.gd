@@ -41,7 +41,7 @@ func load_app():
 		var node_data = parse_json(save_game.get_line())
 		get_tree().get_nodes_in_group("Persist")
 		var node = get_node("/root/App/GroundFloor/CleaningArea").find_node(str(node_data["node"]))
-		print("load node ", node)
+
 		for i in node_data.keys():            
 			if i == "filename" or i == "parent" or i == "node":
 				continue			
