@@ -31,7 +31,7 @@ func _process(delta):
 # warning-ignore:unused_argument
 func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
-		
+		get_node("/root/App/CheckUI").find_node("CheckLabel").text = task_name + "?"
 		node_check.position = Vector2(0, 0)
 		node_check.node_testing = self
 		
