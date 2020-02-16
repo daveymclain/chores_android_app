@@ -1,7 +1,7 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/livingroom_floor_dirt.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Settings.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Methods.gd" type="Script" id=5]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Sprites/living room mop.png" type="Texture" id=18]
 [ext_resource path="res://Scripts/Mop.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/Temp.gd" type="Script" id=20]
+[ext_resource path="res://Sprites/kitchen_mop.png" type="Texture" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -112,10 +113,14 @@ centered = false
 
 [node name="CleaningArea" type="Node2D" parent="GroundFloor"]
 
-[node name="Kitchen_hover" type="Area2D" parent="GroundFloor/CleaningArea"]
+[node name="Kitchen_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
-task_name = "Kitchen 
+task_name = "Kitchen
 Hoover"
+zoom_settings = {
+"position": Vector2( -250, -200 ),
+"scale": Vector2( 1.4, 1.4 )
+}
 clean_frequency = {
 "days": 0,
 "hours": 0,
@@ -123,12 +128,25 @@ clean_frequency = {
 "secs": 0
 }
 
-[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hover"]
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
 texture = ExtResource( 11 )
 centered = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_hover"]
-polygon = PoolVector2Array( 26.6427, 333.414, 336.521, 331.521, 339.046, 574.501, 150.657, 577.657, 150.973, 529.061, 26.0116, 529.692 )
+[node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
+texture = ExtResource( 21 )
+centered = false
+script = ExtResource( 19 )
+clean_frequency = {
+"days": 0,
+"hours": 1,
+"mins": 0,
+"secs": 0
+}
+task_name = "Kitchen
+Mop"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
+polygon = PoolVector2Array( 26.7015, 331.627, 337.932, 329.963, 336.268, 574.62, 148.198, 577.394, 146.534, 526.909, 27.2562, 526.354 )
 
 [node name="Living Room_hover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -175,7 +193,7 @@ centered = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Hallway_hoover"]
 polygon = PoolVector2Array( 149.755, 765.519, 223.519, 765.287, 270.84, 862.481, 271.072, 887.533, 149.987, 889.852 )
 
-[node name="Safa_puff" type="Area2D" parent="GroundFloor/CleaningArea"]
+[node name="Sofa_puff" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
 task_name = "Sofa 
 Puff"
@@ -190,19 +208,21 @@ clean_frequency = {
 "secs": 0
 }
 
-[node name="Sofa" type="Sprite" parent="GroundFloor/CleaningArea/Safa_puff"]
+[node name="Sofa" type="Sprite" parent="GroundFloor/CleaningArea/Sofa_puff"]
 texture = ExtResource( 14 )
 centered = false
 
-[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Safa_puff"]
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Sofa_puff"]
 texture = ExtResource( 15 )
 centered = false
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Safa_puff"]
-polygon = PoolVector2Array( 310.962, 885.144, 510.394, 887.568, 511.275, 867.735, 517.886, 866.854, 517.666, 811.101, 494.086, 810.22, 493.205, 812.423, 304.131, 810.22, 302.588, 863.548, 310.742, 865.752 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Sofa_puff"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 278.473, 1048.73, 492.72, 1049.72, 492.72, 1099.88, 488.734, 1106.86, 485.744, 1126.12, 286.445, 1124.79, 284.784, 1104.53, 278.473, 1103.87 )
 
-[node name="CollisionPolygon" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Safa_puff"]
-polygon = PoolVector2Array( 318.804, 754.873, 240.885, 749.192, 241.697, 596.33, 261.447, 594.707, 261.447, 589.837, 316.369, 591.19 )
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Sofa_puff"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 294.324, 990.426, 236.801, 992.143, 234.225, 983.987, 217.484, 986.563, 215.766, 832.882, 234.225, 832.882, 234.225, 827.301, 294.324, 826.442 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1000 )
@@ -545,10 +565,10 @@ script = ExtResource( 16 )
 script = ExtResource( 20 )
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
-[connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_hover" to="GroundFloor/CleaningArea/Kitchen_hover" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_hoover" to="GroundFloor/CleaningArea/Kitchen_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Living Room_hover" to="GroundFloor/CleaningArea/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Hallway_hoover" to="GroundFloor/CleaningArea/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
-[connection signal="input_event" from="GroundFloor/CleaningArea/Safa_puff" to="GroundFloor/CleaningArea/Safa_puff" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea/Sofa_puff" to="GroundFloor/CleaningArea/Sofa_puff" method="_on_LivingRoomHoover_input_event"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]

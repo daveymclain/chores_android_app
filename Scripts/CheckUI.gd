@@ -10,6 +10,8 @@ func _ready():
 
 func _clicked(node):
 	self.position = Vector2(0, 0)
+	mop_present = false
+	$"VBoxContainer/Row mop".visible = false
 	if node.get_node("Mop"):
 		mop_present = true
 		$"VBoxContainer/Row mop".visible = true
@@ -17,12 +19,14 @@ func _clicked(node):
 	else:
 		mop_present = false
 	node_testing = node
+	$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
+	$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
 
 
 
 func _on_Yes_pressed():
-	if mop_selected:
+	if $"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed:
 		node_testing.get_node("Mop").time_start = OS.get_unix_time()
 	else:
 		node_testing.time_start = OS.get_unix_time()

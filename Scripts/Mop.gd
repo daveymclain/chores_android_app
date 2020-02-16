@@ -14,7 +14,7 @@ func _process(delta):
 		modulate.a = Methods.dirt_test(clean_frequency, 
 			time_start, dirt_limit)[0]
 	else:
-		find_node("Dirt").modulate.a = 0
+		modulate.a = 0
 
 func save():
 	var save_dict = {

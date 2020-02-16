@@ -36,8 +36,10 @@ func _process(delta):
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
 func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
-	if (event is InputEventMouseButton && event.pressed):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
 		emit_signal("clicked", self)
+		get_tree().set_input_as_handled()
+		print("click ", self.name)
 		
 func save():
 	var save_dict = {
