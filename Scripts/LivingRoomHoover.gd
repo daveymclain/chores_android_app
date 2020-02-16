@@ -16,7 +16,9 @@ var time_start = 0
 func _ready():
 	time_start = OS.get_unix_time()
 	set_process(true)
-	
+	add_to_group("Persist")
+	print("start up clean settings = ", clean_frequency)
+
 	
 # warning-ignore:unused_argument
 func _process(delta):
@@ -35,5 +37,11 @@ func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 		node_check.position = Vector2(0, 0)
 		node_check.node_testing = self
 		
-
+func save():
+	var save_dict = {
+		"node" : self.name,
+		"clean_frequency" : clean_frequency,
+		"time_start" : time_start
+	}
+	return save_dict
 		

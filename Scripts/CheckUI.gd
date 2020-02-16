@@ -10,6 +10,7 @@ func _on_Yes_pressed():
 	print(Undo.list_inputs)
 	node_testing.time_start = OS.get_unix_time()
 	position = Vector2(0, -1000)
+	Save.save_app()
 
 func _on_No_pressed():
 	
