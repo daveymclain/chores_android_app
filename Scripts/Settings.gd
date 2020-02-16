@@ -11,7 +11,11 @@ func _on_Settings_pressed():
 	get_node("/root/App/CheckUI").position = Vector2(0, -1000)
 	get_node("/root/App/UI").visible = false
 	self.position = Vector2(0, 0)
-	node = get_node("/root/App/CheckUI").node_testing
+	node = get_node("/root/App/CheckUI")
+	if node.mop_selected:
+		node = node.node_testing.get_node("Mop")
+	else:
+		node = node.node_testing
 	find_node("TaskText").text = node.task_name
 	# Day Row
 	find_node("DaysText").text = str(node.clean_frequency["days"])

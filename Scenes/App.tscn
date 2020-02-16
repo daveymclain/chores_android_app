@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/LivingRoomHoover.gd" type="Script" id=2]
@@ -17,17 +17,20 @@
 [ext_resource path="res://Sprites/sofa_dirt.png" type="Texture" id=15]
 [ext_resource path="res://Scripts/Save.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/App.gd" type="Script" id=17]
+[ext_resource path="res://Sprites/living room mop.png" type="Texture" id=18]
+[ext_resource path="res://Scripts/Mop.gd" type="Script" id=19]
+[ext_resource path="res://Scripts/Temp.gd" type="Script" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 50
+size = 40
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 60
+size = 50
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=4]
@@ -35,10 +38,14 @@ size = 60
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 50
+size = 60
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=6]
+size = 50
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
 size = 60
 font_data = ExtResource( 6 )
 
@@ -142,6 +149,11 @@ clean_frequency = {
 texture = ExtResource( 3 )
 centered = false
 
+[node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Living Room_hover"]
+texture = ExtResource( 18 )
+centered = false
+script = ExtResource( 19 )
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
 polygon = PoolVector2Array( 281.382, 887.26, 550.251, 888.262, 550.92, 329.023, 350.032, 331.359, 347.696, 586.558, 236.156, 587.142, 234.404, 759.415, 281.706, 858.691 )
 
@@ -186,29 +198,63 @@ centered = false
 texture = ExtResource( 15 )
 centered = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Safa_puff"]
-polygon = PoolVector2Array( 318.804, 754.873, 240.885, 749.192, 241.697, 596.33, 261.447, 594.707, 261.447, 589.837, 316.369, 591.19 )
-
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Safa_puff"]
 polygon = PoolVector2Array( 310.962, 885.144, 510.394, 887.568, 511.275, 867.735, 517.886, 866.854, 517.666, 811.101, 494.086, 810.22, 493.205, 812.423, 304.131, 810.22, 302.588, 863.548, 310.742, 865.752 )
+
+[node name="CollisionPolygon" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Safa_puff"]
+polygon = PoolVector2Array( 318.804, 754.873, 240.885, 749.192, 241.697, 596.33, 261.447, 594.707, 261.447, 589.837, 316.369, 591.19 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1000 )
 script = ExtResource( 9 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CheckUI"]
-margin_top = 500.0
+margin_top = 100.0
 margin_right = 576.0
-margin_bottom = 720.0
+margin_bottom = 651.0
 custom_constants/separation = 16
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Row 1" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+[node name="Row mop" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+visible = false
+margin_top = 34.0
 margin_right = 576.0
-margin_bottom = 125.0
+margin_bottom = 90.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CheckUI/VBoxContainer/Row mop"]
+margin_left = 119.0
+margin_right = 456.0
+margin_bottom = 56.0
+custom_constants/separation = 25
+
+[node name="HooverButton" type="Button" parent="CheckUI/VBoxContainer/Row mop/HBoxContainer"]
+margin_right = 156.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 2 )
+toggle_mode = true
+pressed = true
+text = "Hoover"
+
+[node name="MopButton" type="Button" parent="CheckUI/VBoxContainer/Row mop/HBoxContainer"]
+margin_left = 181.0
+margin_right = 337.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 156, 0 )
+custom_fonts/font = SubResource( 2 )
+toggle_mode = true
+text = "Mop"
+
+[node name="Row 1" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
+margin_top = 70.0
+margin_right = 576.0
+margin_bottom = 195.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -218,7 +264,7 @@ __meta__ = {
 margin_left = 86.0
 margin_right = 489.0
 margin_bottom = 125.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.941176, 0.0196078, 0.0196078, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Do you want to 
@@ -226,9 +272,9 @@ clean?"
 align = 1
 
 [node name="Row 2" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 141.0
+margin_top = 211.0
 margin_right = 576.0
-margin_bottom = 220.0
+margin_bottom = 290.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -240,7 +286,7 @@ margin_left = 113.0
 margin_right = 263.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 150, 0 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Yes"
 
 [node name="No" type="Button" parent="CheckUI/VBoxContainer/Row 2"]
@@ -248,13 +294,13 @@ margin_left = 313.0
 margin_right = 463.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 150, 0 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "No"
 
 [node name="Row 3" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 236.0
+margin_top = 306.0
 margin_right = 576.0
-margin_bottom = 315.0
+margin_bottom = 385.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -266,13 +312,13 @@ margin_left = 153.0
 margin_right = 422.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 150, 0 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Settings"
 
 [node name="Row 4" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 331.0
+margin_top = 401.0
 margin_right = 576.0
-margin_bottom = 410.0
+margin_bottom = 480.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -284,12 +330,10 @@ margin_left = 197.0
 margin_right = 378.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 150, 0 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Zoom"
 
-[node name="Settings" type="Node2D" parent="." groups=[
-"Persist",
-]]
+[node name="Settings" type="Node2D" parent="."]
 position = Vector2( -700, 0 )
 script = ExtResource( 4 )
 
@@ -308,7 +352,7 @@ margin_bottom = 149.0
 margin_right = 576.0
 margin_bottom = 149.0
 rect_min_size = Vector2( 576, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Living Room
 Hoover"
 align = 1
@@ -326,7 +370,7 @@ margin_bottom = 205.0
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
 
@@ -343,7 +387,7 @@ margin_top = 33.0
 margin_right = 180.0
 margin_bottom = 94.0
 rect_min_size = Vector2( 153, 0 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Days"
 
 [node name="DaySlider" type="HSlider" parent="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3"]
@@ -369,7 +413,7 @@ margin_bottom = 205.0
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
 
@@ -386,7 +430,7 @@ margin_top = 33.0
 margin_right = 180.0
 margin_bottom = 94.0
 rect_min_size = Vector2( 153, 0 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Hours"
 
 [node name="HoursSlider" type="HSlider" parent="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3"]
@@ -411,7 +455,7 @@ margin_bottom = 205.0
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
 
@@ -428,7 +472,7 @@ margin_top = 33.0
 margin_right = 180.0
 margin_bottom = 94.0
 rect_min_size = Vector2( 153, 0 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Mins"
 
 [node name="MinsSlider" type="HSlider" parent="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3"]
@@ -453,7 +497,7 @@ margin_bottom = 202.0
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Time Left"
 align = 1
 
@@ -469,7 +513,7 @@ margin_left = 88.0
 margin_right = 488.0
 margin_bottom = 125.0
 rect_min_size = Vector2( 400, 0 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "1 Day 3 hours
 43 Secs"
 align = 1
@@ -485,7 +529,7 @@ alignment = 1
 margin_left = 224.0
 margin_right = 352.0
 margin_bottom = 79.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "Exit"
 
 [node name="Methods" type="Node2D" parent="."]
@@ -496,12 +540,17 @@ script = ExtResource( 7 )
 
 [node name="Save" type="Node2D" parent="."]
 script = ExtResource( 16 )
+
+[node name="Temp" type="Node2D" parent="."]
+script = ExtResource( 20 )
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_hover" to="GroundFloor/CleaningArea/Kitchen_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Living Room_hover" to="GroundFloor/CleaningArea/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Hallway_hoover" to="GroundFloor/CleaningArea/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Safa_puff" to="GroundFloor/CleaningArea/Safa_puff" method="_on_LivingRoomHoover_input_event"]
+[connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
+[connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]

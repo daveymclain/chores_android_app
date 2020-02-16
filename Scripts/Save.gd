@@ -4,6 +4,7 @@ func save_app():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	print("node group =", save_nodes)
 	for node in save_nodes:
 
 
@@ -37,8 +38,10 @@ func load_app():
 	# the object it represents.
 	save_game.open("user://savegame.save", File.READ)
 	while save_game.get_position() < save_game.get_len():
+	
 		# Get the saved dictionary from the next line in the save file
 		var node_data = parse_json(save_game.get_line())
+		get_tree().get_nodes_in_group("Persist")
 		get_tree().get_nodes_in_group("Persist")
 		var node = get_node("/root/App/GroundFloor/CleaningArea").find_node(str(node_data["node"]))
 
@@ -46,7 +49,6 @@ func load_app():
 			if i == "filename" or i == "parent" or i == "node":
 				continue			
 			node.set(i, node_data[i])
-			print(node_data[i])
 	
 
 	save_game.close()

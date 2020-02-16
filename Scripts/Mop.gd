@@ -1,0 +1,25 @@
+extends Sprite
+
+export var clean_frequency = {"days" : 0, "hours" : 1, "mins" : 0, "secs" : 0}
+var time_start = 0
+export var dirt_limit = 0.8
+export var task_name = "Living room\nMop"
+
+func _ready():
+	set_process(true)
+	add_to_group("Persist")
+
+func _process(delta):
+	if Methods.conver_sec(clean_frequency):
+		modulate.a = Methods.dirt_test(clean_frequency, 
+			time_start, dirt_limit)[0]
+	else:
+		find_node("Dirt").modulate.a = 0
+
+func save():
+	var save_dict = {
+		"node" : self.name,
+		"clean_frequency" : clean_frequency,
+		"time_start" : time_start
+	}
+	return save_dict
