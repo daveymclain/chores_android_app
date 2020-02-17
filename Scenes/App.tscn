@@ -582,6 +582,7 @@ script = ExtResource( 20 )
 [connection signal="input_event" from="GroundFloor/CleaningArea/Living Room_hover" to="GroundFloor/CleaningArea/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Hallway_hoover" to="GroundFloor/CleaningArea/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Sofa_puff" to="GroundFloor/CleaningArea/Sofa_puff" method="_on_LivingRoomHoover_input_event"]
+[connection signal="gui_input" from="CheckUI/ColorRect" to="CheckUI" method="_on_ColorRect_gui_input"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]

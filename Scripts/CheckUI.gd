@@ -79,3 +79,6 @@ func set_task_name(node, colour):
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
 	$"VBoxContainer/Row 1/CheckLabel".set("custom_colors/font_color", colour)
 
+func _on_ColorRect_gui_input(event):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
+		exit_checkui()
