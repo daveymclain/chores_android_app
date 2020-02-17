@@ -21,8 +21,8 @@ func _ready():
 	
 	set_process(true)
 	add_to_group("Persist")
-	print("start up clean settings = ", clean_frequency)
-	node_check = get_node("/root/App/CheckUI")
+	if not Temp.loaded:
+		time_start = OS.get_unix_time()
 	
 # warning-ignore:unused_argument
 func _process(delta):
@@ -43,7 +43,7 @@ func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 		
 func save():
 	var save_dict = {
-		"node" : self.name,
+		"node" : self,
 		"clean_frequency" : clean_frequency,
 		"time_start" : time_start
 	}

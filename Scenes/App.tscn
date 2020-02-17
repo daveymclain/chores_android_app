@@ -53,6 +53,9 @@ font_data = ExtResource( 6 )
 [node name="App" type="Node2D"]
 script = ExtResource( 17 )
 
+[node name="StartDelay" type="Timer" parent="."]
+one_shot = true
+
 [node name="Background" type="Node2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
@@ -173,7 +176,8 @@ centered = false
 script = ExtResource( 19 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
-polygon = PoolVector2Array( 281.382, 887.26, 550.251, 888.262, 550.92, 329.023, 350.032, 331.359, 347.696, 586.558, 236.156, 587.142, 234.404, 759.415, 281.706, 858.691 )
+position = Vector2( -495.797, -43.7983 )
+polygon = PoolVector2Array( 1044.08, 374.599, 844.782, 372.697, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
 
 [node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -563,6 +567,7 @@ script = ExtResource( 16 )
 
 [node name="Temp" type="Node2D" parent="."]
 script = ExtResource( 20 )
+[connection signal="timeout" from="StartDelay" to="." method="_on_StartDelay_timeout"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_hoover" to="GroundFloor/CleaningArea/Kitchen_hoover" method="_on_LivingRoomHoover_input_event"]

@@ -31,11 +31,9 @@ func _on_Yes_pressed():
 	else:
 		node_testing.time_start = OS.get_unix_time()
 	Undo.add_input([node_testing, node_testing.time_start])
-
-	node_testing.time_start = OS.get_unix_time()
-	Save.save_app()
 	exit_checkui()
-
+	Save.save_app()
+	
 func _on_No_pressed():
 	exit_checkui()
 	

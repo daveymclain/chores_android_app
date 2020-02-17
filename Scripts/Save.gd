@@ -1,4 +1,10 @@
 extends Node2D
+var dict = {}
+
+func convert_dictionary(array):
+	
+	for i in array:
+		dict[str(i)] = i
 
 func save_app():
 	var save_game = File.new()
@@ -17,7 +23,7 @@ func save_app():
 		var node_data = node.call("save")
 
 		# Store the save dictionary as a new line in the save file
-		print(node_data)
+		print("Save Data \n", node_data)
 		save_game.store_line(to_json(node_data))
 	save_game.close()
 
@@ -33,6 +39,7 @@ func load_app():
 	# project, so take care with this step.
 	# For our example, we will accomplish this by deleting saveable objects.
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	convert_dictionary(save_nodes)
 
 	# Load the file line by line and process that dictionary to restore
 	# the object it represents.
@@ -41,14 +48,19 @@ func load_app():
 	
 		# Get the saved dictionary from the next line in the save file
 		var node_data = parse_json(save_game.get_line())
-		get_tree().get_nodes_in_group("Persist")
-		get_tree().get_nodes_in_group("Persist")
+		print("Load Data: \n", node_data)
+		
+		
 		var node = get_node("/root/App/GroundFloor/CleaningArea").find_node(str(node_data["node"]))
 
 		for i in node_data.keys():            
 			if i == "filename" or i == "parent" or i == "node":
 				continue			
-			node.set(i, node_data[i])
+			
+			print("dict = \n", dict)
+			print("node_date node = \n", node_data["node"])
+			dict[node_data["node"]].set(i, node_data[i])
+#			Array(node_data["node"]).set(i, node_data[i])
 	
 
 	save_game.close()

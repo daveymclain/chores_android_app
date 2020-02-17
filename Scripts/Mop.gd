@@ -8,6 +8,8 @@ export var task_name = "Living room\nMop"
 func _ready():
 	set_process(true)
 	add_to_group("Persist")
+	if not Temp.loaded:
+		time_start = OS.get_unix_time()
 
 func _process(delta):
 	if Methods.conver_sec(clean_frequency):
@@ -18,7 +20,7 @@ func _process(delta):
 
 func save():
 	var save_dict = {
-		"node" : self.name,
+		"node" : self,
 		"clean_frequency" : clean_frequency,
 		"time_start" : time_start
 	}
