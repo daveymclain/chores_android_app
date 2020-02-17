@@ -3,8 +3,11 @@ extends Node2D
 var node_testing = null
 var mop_present = false
 var mop_selected = false
+var mop_colour = Color(0, 0, 1)
+var dirt_colour = Color(1, 0, 0)
 
 func _ready():
+	# Conect to all cleaning tasks click signals
 	for node in get_tree().get_nodes_in_group("Persist"):
 		node.connect("clicked", self, "_clicked")
 
@@ -15,12 +18,13 @@ func _clicked(node):
 	if node.get_node("Mop"):
 		mop_present = true
 		$"VBoxContainer/Row mop".visible = true
-		print("gots the mops ", node.get_node("Mop").name, "\nThe node: ", node.name)
 	else:
 		mop_present = false
 	node_testing = node
+	# Reset hoover and mop buttons.
 	$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
 	$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
+	
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
 
 
@@ -47,29 +51,31 @@ func _on_Zoom_pressed():
 func _on_HooverButton_toggled(button_pressed):
 	if button_pressed:
 		$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
-		$"VBoxContainer/Row 1/CheckLabel".text = node_testing.task_name
+		set_task_name(node_testing, dirt_colour)
 		mop_selected = false
 	else:
-		$"VBoxContainer/Row 1/CheckLabel".text = node_testing.get_node("Mop").task_name
+		set_task_name(node_testing.get_node("Mop"), mop_colour)
 		$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = true
 		mop_selected = true
 
 func _on_MopButton_toggled(button_pressed):
 	if button_pressed:
 		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = false
-		$"VBoxContainer/Row 1/CheckLabel".text = node_testing.get_node("Mop").task_name
+		set_task_name(node_testing.get_node("Mop"), mop_colour)
 		mop_selected = true
 	else:
-		$"VBoxContainer/Row 1/CheckLabel".text = node_testing.task_name
+		set_task_name(node_testing, dirt_colour)
 		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
 		mop_selected = false
 
 func exit_checkui():
-	position = Vector2(0, -1000)
+	# Clean up when leaving menu
+	position = Vector2(0, -1200)
 	$"VBoxContainer/Row mop".visible = false
 	mop_selected = false
 	node_testing = null
-
-
-func change_heading(node):
+	
+func set_task_name(node, colour):
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
+	$"VBoxContainer/Row 1/CheckLabel".set("custom_colors/font_color", colour)
+

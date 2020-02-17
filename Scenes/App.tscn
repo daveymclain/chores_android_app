@@ -229,11 +229,19 @@ position = Vector2( 24.3856, -238.099 )
 polygon = PoolVector2Array( 294.324, 990.426, 236.801, 992.143, 234.225, 983.987, 217.484, 986.563, 215.766, 832.882, 234.225, 832.882, 234.225, 827.301, 294.324, 826.442 )
 
 [node name="CheckUI" type="Node2D" parent="."]
-position = Vector2( 0, -1000 )
+position = Vector2( 0, -1200 )
 script = ExtResource( 9 )
 
+[node name="ColorRect" type="ColorRect" parent="CheckUI"]
+margin_right = 576.0
+margin_bottom = 1194.0
+color = Color( 0.647059, 0.647059, 0.647059, 0.745098 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CheckUI"]
-margin_top = 100.0
+margin_top = 80.0
 margin_right = 576.0
 margin_bottom = 651.0
 custom_constants/separation = 16
@@ -276,9 +284,9 @@ toggle_mode = true
 text = "Mop"
 
 [node name="Row 1" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 70.0
+margin_top = 80.0
 margin_right = 576.0
-margin_bottom = 195.0
+margin_bottom = 205.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -296,9 +304,9 @@ clean?"
 align = 1
 
 [node name="Row 2" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 211.0
+margin_top = 221.0
 margin_right = 576.0
-margin_bottom = 290.0
+margin_bottom = 300.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -322,9 +330,9 @@ custom_fonts/font = SubResource( 4 )
 text = "No"
 
 [node name="Row 3" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 306.0
+margin_top = 316.0
 margin_right = 576.0
-margin_bottom = 385.0
+margin_bottom = 395.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
@@ -340,9 +348,9 @@ custom_fonts/font = SubResource( 4 )
 text = "Settings"
 
 [node name="Row 4" type="HBoxContainer" parent="CheckUI/VBoxContainer"]
-margin_top = 401.0
+margin_top = 411.0
 margin_right = 576.0
-margin_bottom = 480.0
+margin_bottom = 490.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {
