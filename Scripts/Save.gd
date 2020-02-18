@@ -1,5 +1,6 @@
 extends Node2D
 var dict = {}
+onready var load_node = get_node("/root/App/UI/HBoxContainer/Load")
 
 func convert_dictionary(array):
 	# Need the save_nodes to be a dictionary as the save data is a string
@@ -58,5 +59,5 @@ func load_app():
 				continue			
 			elif dict.has(node_data["node"]):
 				dict[node_data["node"]].set(i, node_data[i])
-				
+	load_node.modulate = Color(0, 1, 0)
 	save_game.close()

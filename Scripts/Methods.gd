@@ -13,11 +13,8 @@ func conver_sec(list):
 	
 func time_left(sec_left):
 	var mins = int(sec_left) / 60
-	print("mins total: ", mins)
 	var hours = mins / 60
-	print("hours total: ", hours)
 	var days_total = hours / 24
-	print("days total: ", days_total)
 	mins -= (days_total * 1440)
 	var hours_total = mins / 60
 	var mins_total =  mins % 60
