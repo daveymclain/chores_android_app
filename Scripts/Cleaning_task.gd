@@ -39,13 +39,14 @@ func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
 		emit_signal("clicked", self)
 		get_tree().set_input_as_handled()
-		print("click ", self.name)
+
 		
 func save():
 	var save_dict = {
 		"node" : self,
 		"clean_frequency" : clean_frequency,
-		"time_start" : time_start
+		"time_start" : time_start,
+		"node_name" : self.name
 	}
 	return save_dict
 		

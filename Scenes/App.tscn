@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://Sprites/ground_floor.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/ground_floor_hi_res.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/livingroom_floor_dirt.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/kitchen_dirt_hi_res.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Settings.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Methods.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/RussoOne-Regular.ttf" type="DynamicFontData" id=6]
@@ -10,17 +10,17 @@
 [ext_resource path="res://Scripts/Button.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/CheckUI.gd" type="Script" id=9]
 [ext_resource path="res://icon.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/kitchen_floor_dirt.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/living_room_dirt_hi_res.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/hallway_floor_dirt.png" type="Texture" id=12]
 [ext_resource path="res://Scripts/ZoomIn.gd" type="Script" id=13]
-[ext_resource path="res://Sprites/sofa.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/kitchen_counter_dirt.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/sofa_dirt.png" type="Texture" id=15]
 [ext_resource path="res://Scripts/Save.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/App.gd" type="Script" id=17]
-[ext_resource path="res://Sprites/living room mop.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/living_room_mop_hi_res.png" type="Texture" id=18]
 [ext_resource path="res://Scripts/Mop.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/Temp.gd" type="Script" id=20]
-[ext_resource path="res://Sprites/kitchen_mop.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/kitchen_mop_hi_res.png" type="Texture" id=21]
 [ext_resource path="res://Sprites/Hallway_mop.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFont" id=1]
@@ -112,8 +112,12 @@ script = ExtResource( 8 )
 [node name="GroundFloor" type="Node2D" parent="."]
 
 [node name="GroundFloors" type="Sprite" parent="GroundFloor"]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 centered = false
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CleaningArea" type="Node2D" parent="GroundFloor"]
 
@@ -122,8 +126,8 @@ script = ExtResource( 2 )
 task_name = "Kitchen
 Hoover"
 zoom_settings = {
-"position": Vector2( -250, -200 ),
-"scale": Vector2( 1.4, 1.4 )
+"position": Vector2( 0, -100 ),
+"scale": Vector2( 1.6, 1.6 )
 }
 clean_frequency = {
 "days": 0,
@@ -133,10 +137,12 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
-texture = ExtResource( 11 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
 centered = false
 
 [node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 21 )
 centered = false
 script = ExtResource( 19 )
@@ -150,7 +156,8 @@ task_name = "Kitchen
 Mop"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
-polygon = PoolVector2Array( 26.7015, 331.627, 337.932, 329.963, 336.268, 574.62, 148.198, 577.394, 146.534, 526.909, 27.2562, 526.354 )
+position = Vector2( 569.418, -227.495 )
+polygon = PoolVector2Array( -367.495, 801.346, -235.899, 800.575, -235.899, 712.159, -291.416, 710.617, -290.902, 539.439, -367.752, 541.752, -368.009, 597.269, -541.243, 599.582, -542.015, 691.854, -368.009, 691.854 )
 
 [node name="Living Room_hover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -168,17 +175,22 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Living Room_hover"]
-texture = ExtResource( 3 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 11 )
 centered = false
 
 [node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Living Room_hover"]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 18 )
 centered = false
 script = ExtResource( 19 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
 position = Vector2( -495.797, -43.7983 )
-polygon = PoolVector2Array( 1044.08, 374.599, 844.782, 372.697, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
+polygon = PoolVector2Array( 1042.98, 355.78, 843.844, 356.167, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
 
 [node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -226,10 +238,6 @@ clean_frequency = {
 "secs": 0
 }
 
-[node name="Sofa" type="Sprite" parent="GroundFloor/CleaningArea/Sofa_puff"]
-texture = ExtResource( 14 )
-centered = false
-
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Sofa_puff"]
 texture = ExtResource( 15 )
 centered = false
@@ -241,6 +249,38 @@ polygon = PoolVector2Array( 278.473, 1048.73, 492.72, 1049.72, 492.72, 1099.88, 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Sofa_puff"]
 position = Vector2( 24.3856, -238.099 )
 polygon = PoolVector2Array( 294.324, 990.426, 236.801, 992.143, 234.225, 983.987, 217.484, 986.563, 215.766, 832.882, 234.225, 832.882, 234.225, 827.301, 294.324, 826.442 )
+
+[node name="Kitchen_counter" type="Area2D" parent="GroundFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Kitchen Counter 
+Clean"
+zoom_settings = {
+"position": Vector2( 0, -100 ),
+"scale": Vector2( 1.6, 1.6 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_counter"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 14 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 250.083, 551.446, 252.646, 719.757, 310.174, 720.612, 311.028, 550.022 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 125.629, 552.015, 125.06, 606.411, 175.468, 607.55, 176.322, 553.724 )
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 123.92, 702.955, 174.044, 703.809, 176.037, 758.204, 123.351, 759.059 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1200 )
@@ -596,6 +636,7 @@ script = ExtResource( 20 )
 [connection signal="input_event" from="GroundFloor/CleaningArea/Living Room_hover" to="GroundFloor/CleaningArea/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Hallway_hoover" to="GroundFloor/CleaningArea/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Sofa_puff" to="GroundFloor/CleaningArea/Sofa_puff" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_counter" to="GroundFloor/CleaningArea/Kitchen_counter" method="_on_LivingRoomHoover_input_event"]
 [connection signal="gui_input" from="CheckUI/ColorRect" to="CheckUI" method="_on_ColorRect_gui_input"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
