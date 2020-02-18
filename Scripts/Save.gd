@@ -10,7 +10,6 @@ func save_app():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	print("node group =", save_nodes)
 	for node in save_nodes:
 
 
@@ -23,8 +22,9 @@ func save_app():
 		var node_data = node.call("save")
 
 		# Store the save dictionary as a new line in the save file
-
+		
 		save_game.store_line(to_json(node_data))
+		
 	save_game.close()
 
 func load_app():
