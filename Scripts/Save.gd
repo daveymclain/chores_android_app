@@ -56,9 +56,7 @@ func load_app():
 		for i in node_data.keys():            
 			if i == "filename" or i == "parent" or i == "node":
 				continue			
-			
-			dict[node_data["node"]].set(i, node_data[i])
-
-	
-
+			elif dict.has(node_data["node"]):
+				dict[node_data["node"]].set(i, node_data[i])
+				
 	save_game.close()
