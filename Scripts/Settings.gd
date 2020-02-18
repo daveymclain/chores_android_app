@@ -8,10 +8,14 @@ func _process(delta):
 
 func _on_Settings_pressed():
 	get_node("/root/App/GroundFloor").position = Vector2(-700, 0)
-	get_node("/root/App/CheckUI").position = Vector2(0, -1000)
+	get_node("/root/App/CheckUI").position = Vector2(0, -1200)
 	get_node("/root/App/UI").visible = false
 	self.position = Vector2(0, 0)
-	node = get_node("/root/App/CheckUI").node_testing
+	node = get_node("/root/App/CheckUI")
+	if node.mop_selected:
+		node = node.node_testing.get_node("Mop")
+	else:
+		node = node.node_testing
 	find_node("TaskText").text = node.task_name
 	# Day Row
 	find_node("DaysText").text = str(node.clean_frequency["days"])
@@ -22,13 +26,6 @@ func _on_Settings_pressed():
 	# Hours Row
 	find_node("MinsText").text = str(node.clean_frequency["mins"])
 	find_node("MinsSlider").value = node.clean_frequency["mins"]
-	
-
-func update_time_left():
-	var time_left = Methods.time_left(Methods.dirt_test(node.clean_frequency, 
-		node.time_start, node.dirt_limit)[2])
-	var output_string = "Day: %02d\n Hour: %02d\n Min %02d" % time_left
-	find_node("TimeLeftText").text = str(output_string)
 
 func _on_DaySlider_value_changed(value):
 	node.clean_frequency["days"] = int(value)
@@ -44,6 +41,11 @@ func _on_MinsSlider_value_changed(value):
 	node.clean_frequency["mins"] = int(value)
 	find_node("MinsText").text = str(value)
 
+func update_time_left():
+	var time_left = Methods.time_left(Methods.dirt_test(node.clean_frequency, 
+		node.time_start, node.dirt_limit)[2])
+	var output_string = "Day: %02d\nHour: %02d\nMin %02d" % time_left
+	find_node("TimeLeftText").text = str(output_string)
 
 func _on_Exit_pressed():
 	self.position = Vector2(-700, 0)
