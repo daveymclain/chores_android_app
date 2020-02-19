@@ -51,13 +51,12 @@ func dirt_test(time_dict, time_start, dirt_limit):
 	else:
 		return [0, 0, sec_left]
 	
-func _start_flash(node):
-	print("sarting flash")
+
+func flash_start(node, start):
 	
-	$flash.interpolate_property(node.get_node("dirt"), "modulate.a", 0.8, 1, 1)    
-	$flash.start()
-
-
-func _on_flash_tween_completed(object, key):
-	$flash.values.invert()
-	$flash.start()
+	if start:
+		var Flash = preload("res://Scenes/Flash.tscn")
+		var flash = Flash.instance()
+		node.add_child(flash)
+	elif node.has_node("Flash"):
+		node.get_node("Flash").queue_free()

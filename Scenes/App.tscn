@@ -307,6 +307,7 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Dining_room_table"]
+modulate = Color( 1, 1, 0, 1 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 25 )
 centered = false
@@ -346,7 +347,7 @@ script = ExtResource( 9 )
 [node name="ColorRect" type="ColorRect" parent="CheckUI"]
 margin_right = 576.0
 margin_bottom = 1194.0
-color = Color( 0.647059, 0.647059, 0.647059, 0.745098 )
+color = Color( 0.65, 0.65, 0.65, 0.41 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -702,6 +703,7 @@ script = ExtResource( 20 )
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="CheckUI" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 4/Zoom" to="CheckUI" method="_on_Zoom_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]

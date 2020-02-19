@@ -12,6 +12,7 @@ func _ready():
 		node.connect("clicked", self, "_clicked")
 
 func _clicked(node):
+	Methods.flash_start(node.get_node("Dirt"), true)
 	self.position = Vector2(0, 0)
 	mop_present = false
 	$"VBoxContainer/Row mop".visible = false
@@ -52,6 +53,7 @@ func _on_HooverButton_toggled(button_pressed):
 	if button_pressed:
 		$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
 		set_task_name(node_testing, dirt_colour)
+
 		mop_selected = false
 	else:
 		set_task_name(node_testing.get_node("Mop"), mop_colour)
@@ -62,18 +64,13 @@ func _on_MopButton_toggled(button_pressed):
 	if button_pressed:
 		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = false
 		set_task_name(node_testing.get_node("Mop"), mop_colour)
+		switch_selection(false)
 		mop_selected = true
 	else:
 		set_task_name(node_testing, dirt_colour)
 		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
+		switch_selection(true)
 		mop_selected = false
-
-func exit_checkui():
-	# Clean up when leaving menu
-	position = Vector2(0, -1200)
-	$"VBoxContainer/Row mop".visible = false
-	mop_selected = false
-	node_testing = null
 	
 func set_task_name(node, colour):
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
@@ -82,3 +79,30 @@ func set_task_name(node, colour):
 func _on_ColorRect_gui_input(event):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
 		exit_checkui()
+
+func _on_Settings_pressed():
+	if mop_selected:
+		Methods.flash_start(node_testing.get_node("Mop"), false)
+	else:
+		Methods.flash_start(node_testing.get_node("Dirt"), false)
+
+func switch_selection(dirt):
+	if mop_selected:
+		if dirt:
+			Methods.flash_start(node_testing.get_node("Mop"), false)
+			Methods.flash_start(node_testing.get_node("Dirt"), true)
+		else:
+			Methods.flash_start(node_testing.get_node("Dirt"), false)
+			Methods.flash_start(node_testing.get_node("Mop"), true)
+		
+func exit_checkui():
+	# Clean up when leaving menu
+	
+	if mop_selected:
+		Methods.flash_start(node_testing.get_node("Mop"), false)
+	else:
+		Methods.flash_start(node_testing.get_node("Dirt"), false)
+	position = Vector2(0, -1200)
+	$"VBoxContainer/Row mop".visible = false
+	mop_selected = false
+	node_testing = null

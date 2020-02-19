@@ -12,11 +12,11 @@ func _ready():
 		time_start = OS.get_unix_time()
 
 func _process(delta):
-	if Methods.conver_sec(clean_frequency):
-		modulate.a = Methods.dirt_test(clean_frequency, 
+	var dirt_alpha = Methods.dirt_test(clean_frequency, 
 			time_start, dirt_limit)[0]
-	else:
-		modulate.a = 0
+
+	if not self.has_node("Flash"):
+		modulate.a = dirt_alpha
 
 func save():
 	var save_dict = {
