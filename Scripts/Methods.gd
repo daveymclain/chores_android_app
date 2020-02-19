@@ -22,6 +22,7 @@ func time_left(sec_left):
 	
 	
 func convert_percent_to_alpha(percent, alpha_limit):
+	
 	if percent < 100:
 		var ease_percent = ease(percent / 100, 5)
 		
@@ -30,6 +31,7 @@ func convert_percent_to_alpha(percent, alpha_limit):
 		return (ease_percent * 100) * percent_alpha_limit
 	else:
 		return alpha_limit
+		
 
 func dirt_test(time_dict, time_start, dirt_limit):
 	var sec = conver_sec(time_dict)
@@ -49,3 +51,13 @@ func dirt_test(time_dict, time_start, dirt_limit):
 	else:
 		return [0, 0, sec_left]
 	
+func _start_flash(node):
+	print("sarting flash")
+	
+	$flash.interpolate_property(node.get_node("dirt"), "modulate.a", 0.8, 1, 1)    
+	$flash.start()
+
+
+func _on_flash_tween_completed(object, key):
+	$flash.values.invert()
+	$flash.start()

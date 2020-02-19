@@ -199,7 +199,7 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
 position = Vector2( -495.797, -43.7983 )
-polygon = PoolVector2Array( 1042.98, 355.78, 843.844, 356.167, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
+polygon = PoolVector2Array( 1037.86, 541.835, 843.385, 538.672, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
 
 [node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
