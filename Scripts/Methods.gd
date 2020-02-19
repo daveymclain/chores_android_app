@@ -23,8 +23,11 @@ func time_left(sec_left):
 	
 func convert_percent_to_alpha(percent, alpha_limit):
 	if percent < 100:
+		var ease_percent = ease(percent / 100, 5)
+		
 		var percent_alpha_limit = alpha_limit / 100
-		return percent * percent_alpha_limit
+		
+		return (ease_percent * 100) * percent_alpha_limit
 	else:
 		return alpha_limit
 
