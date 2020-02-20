@@ -199,7 +199,7 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
 position = Vector2( -495.797, -43.7983 )
-polygon = PoolVector2Array( 1042.98, 355.78, 843.844, 356.167, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
+polygon = PoolVector2Array( 1037.86, 541.835, 843.385, 538.672, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
 
 [node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -307,6 +307,7 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Dining_room_table"]
+modulate = Color( 1, 1, 0, 1 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 25 )
 centered = false
@@ -346,7 +347,7 @@ script = ExtResource( 9 )
 [node name="ColorRect" type="ColorRect" parent="CheckUI"]
 margin_right = 576.0
 margin_bottom = 1194.0
-color = Color( 0.647059, 0.647059, 0.647059, 0.745098 )
+color = Color( 0.65, 0.65, 0.65, 0.41 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -701,6 +702,7 @@ script = ExtResource( 20 )
 [connection signal="toggled" from="CheckUI/VBoxContainer/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 2/No" to="CheckUI" method="_on_No_pressed"]
+[connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="CheckUI" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/VBoxContainer/Row 4/Zoom" to="CheckUI" method="_on_Zoom_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]

@@ -22,6 +22,7 @@ func time_left(sec_left):
 	
 	
 func convert_percent_to_alpha(percent, alpha_limit):
+	
 	if percent < 100:
 		var ease_percent = ease(percent / 100, 5)
 		
@@ -30,6 +31,7 @@ func convert_percent_to_alpha(percent, alpha_limit):
 		return (ease_percent * 100) * percent_alpha_limit
 	else:
 		return alpha_limit
+		
 
 func dirt_test(time_dict, time_start, dirt_limit):
 	var sec = conver_sec(time_dict)
@@ -49,3 +51,12 @@ func dirt_test(time_dict, time_start, dirt_limit):
 	else:
 		return [0, 0, sec_left]
 	
+
+func flash_start(node, start):
+	
+	if start:
+		var Flash = preload("res://Scenes/Flash.tscn")
+		var flash = Flash.instance()
+		node.add_child(flash)
+	elif node.has_node("Flash"):
+		node.get_node("Flash").queue_free()
