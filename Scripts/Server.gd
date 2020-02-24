@@ -55,20 +55,31 @@ func _process(delta):
 
 func time_check(server_time):
 	print("checking server time")
-	server_time = int(server_time)
-	if Save.dict_save["save_time"] != server_time:
-		if Save.dict_save["save_time"] > server_time:
-			print("server needs to update")
-			server_message = to_json(Save.dict_save)
-			cron_sync = 1
+	if server_time.is_valid_integer():
+		server_time = int(server_time)
+		if Save.dict_save["save_time"] != server_time:
+			if Save.dict_save["save_time"] > server_time:
+				print("server needs to update")
+				server_message = to_json(Save.dict_save)
+				cron_sync = 1
+			else:
+				print("Client need to update")
+				server_message = "send"
+				cron_sync = 1
 		else:
-			print("Client need to update")
-			server_message = "send"
-			cron_sync = 1
+			print("server and client is up to date")
+			server_message = "check"
 	else:
-		print("server and client is up to date")
-		server_message = "check"
-		
+		print("updating from server") 
+		Save.dict_save = parse_json(server_time)
+		var save_nodes = get_tree().get_nodes_in_group("Persist")
+		var dict = Save.convert_dictionary(save_nodes)
+		for i in Save.dict_save.keys():
+			if i == "save_time":
+				continue
+			Save.dict_save[dict[i]] = Save.dict_save[i]
+			Save.dict_save.erase(i)
+		server_message = "check"	
 
 	
 func start_client():

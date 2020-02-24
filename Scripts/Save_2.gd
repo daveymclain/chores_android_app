@@ -1,13 +1,15 @@
 extends Node
 
 var dict_save = {}
-var dict = {}
+
 
 func convert_dictionary(array):
 	# Need the save_nodes to be a dictionary as the save data is a string
+	var dict = {}
 	for i in array:
 		dict[str(i)] = i
-
+	return dict
+	
 func load_save():
 	var file = File.new()
 	if not file.file_exists("user://savegame.save"):
@@ -17,7 +19,7 @@ func load_save():
 	var text = file.get_as_text()
 	dict_save = parse_json(text)
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	convert_dictionary(save_nodes)
+	var dict = convert_dictionary(save_nodes)
 	
 	for i in dict_save.keys():
 		if i == "save_time":
@@ -25,7 +27,7 @@ func load_save():
 		dict_save[dict[i]] = dict_save[i]
 		dict_save.erase(i)	
 		
-	print(dict_save)
+
 	file.close()
 
 func save():
