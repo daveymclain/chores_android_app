@@ -51,4 +51,5 @@ func _on_Exit_pressed():
 	self.position = Vector2(-700, 0)
 	get_node("/root/App/GroundFloor").position = Vector2(0, 0)
 	get_node("/root/App/UI").visible = true
+	get_node("/root/App/CheckUI").mop_selected = false
 	Save.save()

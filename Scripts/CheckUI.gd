@@ -88,7 +88,7 @@ func _on_Settings_pressed():
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
 		Methods.flash_start(node_testing.get_node("Dirt"), false)
-	mop_selected = false
+	
 
 func switch_selection(dirt):
 	
