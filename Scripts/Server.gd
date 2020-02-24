@@ -1,0 +1,81 @@
+extends Node2D
+
+# Seconds between sync with server
+var sync_interval = 60
+var cron_sync = 3
+var done = false
+onready var socket = PacketPeerUDP.new()
+var IP_SERVER = "127.0.0.1"
+var PORT_SERVER = 4242
+var PORT_CLIENT = 4243
+
+var cron_send = 2
+
+var server_contact = false
+
+# time out server if no response
+var count_send = 0
+
+var server_message = "check"
+
+func _ready():
+	start_client()
+	
+func _process(delta):
+	if cron_sync > 0:
+		cron_sync -= delta
+	if cron_sync <= 0:
+		server_contact = true
+	if server_contact:
+		if cron_send > 0:
+			cron_send -= delta	
+		if cron_send <= 0:
+			if socket.is_listening():
+				socket.set_dest_address(IP_SERVER, PORT_SERVER)
+				var staging = server_message
+				var package = staging.to_ascii()
+				socket.put_packet(package)
+				
+				print_debug("send!")
+				count_send += 1
+				if count_send == 3:
+					print_debug("Server not responding after %d tries" % 3)
+					server_contact = false
+					cron_sync = sync_interval 
+					count_send = 0
+				cron_send = 3
+	
+		if socket.get_available_packet_count() > 0:
+			cron_sync = sync_interval
+			var array_bytes = socket.get_packet()
+			print_debug("msg from server: " + array_bytes.get_string_from_ascii())
+			time_check(array_bytes.get_string_from_ascii())
+			server_contact = false
+			
+
+func time_check(server_time):
+	print("checking server time")
+	server_time = int(server_time)
+	if Save.dict_save["save_time"] != server_time:
+		if Save.dict_save["save_time"] > server_time:
+			print("server needs to update")
+			server_message = to_json(Save.dict_save)
+			cron_sync = 1
+		else:
+			print("Client need to update")
+			server_message = "send"
+			cron_sync = 1
+	else:
+		print("server and client is up to date")
+		server_message = "check"
+		
+
+	
+func start_client():
+	if (socket.listen(PORT_CLIENT, IP_SERVER) != OK):
+		print_debug("Error listening on port: " + str(PORT_CLIENT) + " in server: " + IP_SERVER)
+	else:
+		print_debug("Listening on port: " + str(PORT_CLIENT) + " in server: " + IP_SERVER)
+
+func _exit_tree():
+	socket.close()

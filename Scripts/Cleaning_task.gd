@@ -18,40 +18,32 @@ var time_start = 0
 
 var node_check = null
 
+var ready = false
+
 func _ready():
-	
-	set_process(true)
 	add_to_group("Persist")
-	if not Temp.loaded:
-		time_start = OS.get_unix_time()
+
 	
 # warning-ignore:unused_argument
 func _process(delta):
+#	if get_node("/root/App").done and ready == false:
+#		Save.dict_save[self] = {"time_start": time_start,
+#		"clean_frequency" : clean_frequency}
+#		ready = true
+	if get_node("/root/App").done:
+		var dirt_alpha = Methods.dirt_test(Save.dict_save[self]["clean_frequency"], 
+				Save.dict_save[self]["time_start"], dirt_limit)[0]
 	
-	var dirt_alpha = Methods.dirt_test(clean_frequency, 
-			time_start, dirt_limit)[0]
-
-	if not $Dirt.has_node("Flash"):
-		dirt_node.modulate.a = dirt_alpha
-
-
-
+		if not $Dirt.has_node("Flash"):
+			dirt_node.modulate.a = dirt_alpha
 
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument
 func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
 		emit_signal("clicked", self)
-		Temp.node_selected = self
 		get_tree().set_input_as_handled()
 	
 		
-func save():
-	var save_dict = {
-		"node" : self,
-		"clean_frequency" : clean_frequency,
-		"time_start" : time_start,
-		"node_name" : self.name
-	}
-	return save_dict
+
 		

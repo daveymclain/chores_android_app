@@ -12,7 +12,8 @@ func _ready():
 		node.connect("clicked", self, "_clicked")
 
 func _clicked(node):
-	Methods.flash_start(node.get_node("Dirt"), true)
+	
+	
 	self.position = Vector2(0, 0)
 	mop_present = false
 	$"VBoxContainer/Row mop".visible = false
@@ -22,22 +23,23 @@ func _clicked(node):
 	else:
 		mop_present = false
 	node_testing = node
+	
 	# Reset hoover and mop buttons.
 	$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
 	$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
 	
 	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
-
+	Methods.flash_start(node_testing.get_node("Dirt"), true)
 
 
 func _on_Yes_pressed():
 	if $"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed:
 		node_testing.get_node("Mop").time_start = OS.get_unix_time()
 	else:
-		node_testing.time_start = OS.get_unix_time()
+		Save.dict_save[node_testing]["time_start"] = OS.get_unix_time()
 	Undo.add_input([node_testing, node_testing.time_start])
 	exit_checkui()
-	Save.save_app()
+	Save.save()
 	
 func _on_No_pressed():
 	exit_checkui()
@@ -81,12 +83,15 @@ func _on_ColorRect_gui_input(event):
 		exit_checkui()
 
 func _on_Settings_pressed():
+	
 	if mop_selected:
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
 		Methods.flash_start(node_testing.get_node("Dirt"), false)
+	mop_selected = false
 
 func switch_selection(dirt):
+	
 	if mop_selected:
 		if dirt:
 			Methods.flash_start(node_testing.get_node("Mop"), false)
@@ -97,7 +102,6 @@ func switch_selection(dirt):
 		
 func exit_checkui():
 	# Clean up when leaving menu
-	
 	if mop_selected:
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
@@ -105,4 +109,3 @@ func exit_checkui():
 	position = Vector2(0, -1200)
 	$"VBoxContainer/Row mop".visible = false
 	mop_selected = false
-	node_testing = null

@@ -10,6 +10,9 @@ func convert_dictionary(array):
 func save_app():
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
+	var save_time = OS.get_unix_time()
+	Temp.local_save_time = save_time
+	save_game.store_line(to_json({"save_time" : save_time}))
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	for node in save_nodes:
 
@@ -49,15 +52,20 @@ func load_app():
 	
 		# Get the saved dictionary from the next line in the save file
 		var node_data = parse_json(save_game.get_line())
+		
+		if "save_time" in node_data.keys():
+			Temp.local_save_time = node_data["save_time"]
+			continue
 
 		
 		
 		var node = get_node("/root/App/GroundFloor/CleaningArea").find_node(str(node_data["node"]))
 
 		for i in node_data.keys():            
-			if i == "filename" or i == "parent" or i == "node":
+			if i == "filename" or i == "parent" or i == "node" or i == "save_time":
 				continue			
 			elif dict.has(node_data["node"]):
 				dict[node_data["node"]].set(i, node_data[i])
 	load_node.modulate = Color(0, 1, 0)
 	save_game.close()
+
