@@ -6,6 +6,7 @@ const Flash = preload("res://Scenes/Flash.tscn")
 # limit of transparancy
 export var task_name = "Living room \nHoover"
 export var dirt_limit = 0.8
+var node_number
 
 
 
@@ -31,8 +32,8 @@ func _process(delta):
 #		"clean_frequency" : clean_frequency}
 #		ready = true
 	if get_node("/root/App").done:
-		var dirt_alpha = Methods.dirt_test(Save.dict_save[self]["clean_frequency"], 
-				Save.dict_save[self]["time_start"], dirt_limit)[0]
+		var dirt_alpha = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
+				Save.dict_save[node_number]["time_start"], dirt_limit)[0]
 	
 		if not $Dirt.has_node("Flash"):
 			dirt_node.modulate.a = dirt_alpha
@@ -41,11 +42,12 @@ func _process(delta):
 # warning-ignore:unused_argument
 func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
-		emit_signal("clicked", self)
+		emit_signal("clicked", node_number)
 		get_tree().set_input_as_handled()
 	
 func save():
 	var save_dict = {
+		"node" : self,
 		"clean_frequency" : clean_frequency,
 		"time_start" : time_start
 	}

@@ -19,16 +19,20 @@ func load_save():
 		return loaded
 		
 	file.open("user://savegame.save", File.READ)
-	var text = file.get_as_text()
-	dict_save = parse_json(text)
-	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	var dict = convert_dictionary(save_nodes)
 	
-	for i in dict_save.keys():
-		if i == "save_time":
-			continue
-		dict_save[dict[i]] = dict_save[i]
-		dict_save.erase(i)	
+	dict_save = parse_json(file.get_line())
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	
+#	for i in dict_save.keys():
+#		if i == "save_time":
+#			continue
+#		dict_save[i]["node"]
+#		dict_save[dict[i]] = dict_save[i]
+#		dict_save.erase(i)	
+	for i in save_nodes:
+		print(i)
+		print(i.node_number)
+		dict_save[i.node_number]["node"] = i
 	file.close()
 	return loaded
 

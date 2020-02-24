@@ -1,6 +1,7 @@
 extends Node2D
 
 var node_testing = null
+var node_numbers = null
 var mop_present = false
 var mop_selected = false
 var mop_colour = Color(0, 0, 1)
@@ -11,33 +12,37 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("Persist"):
 		node.connect("clicked", self, "_clicked")
 
-func _clicked(node):
+func _clicked(node_number):
 	
 	
 	self.position = Vector2(0, 0)
 	mop_present = false
 	$"VBoxContainer/Row mop".visible = false
-	if node.get_node("Mop"):
+	if Save.dict_save[node_number]["node"].get_node("Mop"):
 		mop_present = true
 		$"VBoxContainer/Row mop".visible = true
 	else:
 		mop_present = false
-	node_testing = node
+		
+	node_numbers = node_number
+	print(node_number)
 	
 	# Reset hoover and mop buttons.
 	$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
 	$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
-	
-	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
+	node_testing = Save.dict_save[node_number]["node"]
+	$"VBoxContainer/Row 1/CheckLabel".text = node_testing.task_name
 	Methods.flash_start(node_testing.get_node("Dirt"), true)
+	
 
 
 func _on_Yes_pressed():
 	if $"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed:
-		node_testing.get_node("Mop").time_start = OS.get_unix_time()
+		var num = node_testing.get_node("Mop").node_number
+		Save.dict_save[num]["time_start"] = OS.get_unix_time()
 	else:
-		Save.dict_save[node_testing]["time_start"] = OS.get_unix_time()
-	Undo.add_input([node_testing, node_testing.time_start])
+		Save.dict_save[node_numbers]["time_start"] = OS.get_unix_time()
+#	Undo.add_input([node_testing, node_testing.time_start])
 	exit_checkui()
 	Save.save()
 	

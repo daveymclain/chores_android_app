@@ -73,17 +73,20 @@ func time_check(server_time):
 		print("updating from server") 
 		Save.dict_save = parse_json(server_time)
 		var save_nodes = get_tree().get_nodes_in_group("Persist")
-		var dict = Save.convert_dictionary(save_nodes)
-		for i in Save.dict_save.keys():
-			if i == "save_time":
-				continue
-			Save.dict_save[dict[i]] = Save.dict_save[i]
-			Save.dict_save.erase(i)
+
+#		for i in Save.dict_save.keys():
+#			if i == "save_time":
+#				continue
+#			print (dict[i].filename)
+#			Save.dict_save[dict[i]] = Save.dict_save[i]
+#			Save.dict_save.erase(i)
+		for i in save_nodes:
+			Save.dict_save[i.node_number]["node"] = i
 		server_message = "check"	
 
 	
 func start_client():
-	if (socket.listen(PORT_CLIENT, IP_SERVER) != OK):
+	if (socket.listen(PORT_CLIENT, "*") != OK):
 		print_debug("Error listening on port: " + str(PORT_CLIENT) + " in server: " + IP_SERVER)
 	else:
 		print_debug("Listening on port: " + str(PORT_CLIENT) + " in server: " + IP_SERVER)
