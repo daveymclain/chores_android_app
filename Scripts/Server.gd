@@ -5,7 +5,7 @@ var sync_interval = 60
 var cron_sync = 3
 var done = false
 onready var socket = PacketPeerUDP.new()
-var IP_SERVER = "127.0.0.1"
+var IP_SERVER = "192.168.0.213"
 var PORT_SERVER = 4242
 var PORT_CLIENT = 4243
 

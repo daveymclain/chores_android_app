@@ -23,3 +23,9 @@ func _process(delta):
 		if not self.has_node("Flash"):
 			modulate.a = dirt_alpha
 
+func save():
+	var save_dict = {
+		"clean_frequency" : clean_frequency,
+		"time_start" : time_start
+	}
+	return save_dict

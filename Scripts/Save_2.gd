@@ -11,10 +11,13 @@ func convert_dictionary(array):
 	return dict
 	
 func load_save():
+	var loaded = true
 	var file = File.new()
 	if not file.file_exists("user://savegame.save"):
-		return # Error! We don't have a save to load.
 		print("Error no save to load. Saving")
+		loaded = false
+		return loaded
+		
 	file.open("user://savegame.save", File.READ)
 	var text = file.get_as_text()
 	dict_save = parse_json(text)
@@ -26,9 +29,8 @@ func load_save():
 			continue
 		dict_save[dict[i]] = dict_save[i]
 		dict_save.erase(i)	
-		
-
 	file.close()
+	return loaded
 
 func save():
 	var file = File.new()

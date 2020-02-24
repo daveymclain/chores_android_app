@@ -44,6 +44,11 @@ func _on_LivingRoomHoover_input_event(viewport, event, shape_idx):
 		emit_signal("clicked", self)
 		get_tree().set_input_as_handled()
 	
-		
+func save():
+	var save_dict = {
+		"clean_frequency" : clean_frequency,
+		"time_start" : time_start
+	}
+	return save_dict
 
 		

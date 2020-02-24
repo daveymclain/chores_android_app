@@ -6,17 +6,21 @@ func _ready():
 	$StartDelay.start(1)
 
 func _on_StartDelay_timeout():
-	Save.load_save()
-	done = true	
 	
-#	var save_nodes = get_tree().get_nodes_in_group("Persist")
-#	for node in save_nodes:
-#	# Check the node has a save function
-#		if !node.has_method("save"):
-#			print("persistent node '%s' is missing a save() function, skipped" % node.name)
-#			continue
-#
-#		# Call the node's save function
-#		Save.dict_save[node] = ""
-#	done = true
+	done = Save.load_save()
+	
 
+	if not done:
+		# if you cant load from file generate working dictionary
+		print("cant load generating dict")
+		var save_nodes = get_tree().get_nodes_in_group("Persist")
+		for node in save_nodes:
+		# Check the node has a save function
+			if !node.has_method("save"):
+				print("persistent node '%s' is missing a save() function, skipped" % node.name)
+				continue
+	
+			# Call the node's save function
+			Save.dict_save[node] = node.call("save")
+		print(Save.dict_save)
+		done = true
