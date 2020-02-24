@@ -25,11 +25,11 @@ func _on_StartDelay_timeout():
 			if !node.has_method("save"):
 				print("persistent node '%s' is missing a save() function, skipped" % node.name)
 				continue
-			print("name == ", node.name)
+			
 			# Call the node's save function
-			Save.dict_save[node_number] = node.call("save")
+			Save.dict_save[str(node_number)] = node.call("save")
 			node.node_number = str(node_number)
 			node_number += 1
-		print(Save.dict_save)
+		
 		Save.dict_save["save_time"] = 0
 		done = true

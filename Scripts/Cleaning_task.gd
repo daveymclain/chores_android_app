@@ -49,6 +49,7 @@ func save():
 	var save_dict = {
 		"node" : self,
 		"clean_frequency" : clean_frequency,
+		"frequency_save" : 0,
 		"time_start" : time_start
 	}
 	return save_dict
