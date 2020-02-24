@@ -2,6 +2,10 @@ extends Node2D
 
 var server_paused = false
 onready var node_load = get_node("/root/App/UI/HBoxContainer/Load")
+var colour_red = Color(1,0,0)
+var colour_yellow = Color(1,1,0)
+var colour_green = Color(0,1,0)
+var colour_blue = Color(0,0,1)
 # Seconds between sync with server
 var sync_interval = 10
 var cron_sync = 2
@@ -65,13 +69,16 @@ func time_check(server_time):
 				print("server needs to update")
 				server_message = to_json(Save.dict_save)
 				cron_sync = 1
+				node_load.modulate = colour_blue
 			else:
 				print("Client need to update")
 				server_message = "send"
 				cron_sync = 1
+				node_load.modulate = colour_yellow
 		else:
 			print("server and client is up to date")
 			server_message = "check"
+			node_load.modulate = colour_green
 	else:
 		print("updating from server") 
 		Save.dict_save = parse_json(server_time)
