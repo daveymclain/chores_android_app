@@ -1,8 +1,10 @@
 extends Node2D
 
+var server_paused = false
+onready var node_load = get_node("/root/App/UI/HBoxContainer/Load")
 # Seconds between sync with server
-var sync_interval = 60
-var cron_sync = 3
+var sync_interval = 10
+var cron_sync = 2
 var done = false
 onready var socket = PacketPeerUDP.new()
 var IP_SERVER = "192.168.0.213"
@@ -22,28 +24,29 @@ func _ready():
 	start_client()
 	
 func _process(delta):
-	if cron_sync > 0:
-		cron_sync -= delta
-	if cron_sync <= 0:
-		server_contact = true
-	if server_contact:
-		if cron_send > 0:
-			cron_send -= delta	
-		if cron_send <= 0:
-			if socket.is_listening():
-				socket.set_dest_address(IP_SERVER, PORT_SERVER)
-				var staging = server_message
-				var package = staging.to_ascii()
-				socket.put_packet(package)
-				
-				print_debug("send!")
-				count_send += 1
-				if count_send == 3:
-					print_debug("Server not responding after %d tries" % 3)
-					server_contact = false
-					cron_sync = sync_interval 
-					count_send = 0
-				cron_send = 3
+	if not server_paused:
+		if cron_sync > 0:
+			cron_sync -= delta
+		if cron_sync <= 0:
+			server_contact = true
+		if server_contact:
+			if cron_send > 0:
+				cron_send -= delta	
+			if cron_send <= 0:
+				if socket.is_listening():
+					socket.set_dest_address(IP_SERVER, PORT_SERVER)
+					var staging = server_message
+					var package = staging.to_ascii()
+					socket.put_packet(package)
+					
+					print_debug("send!")
+					count_send += 1
+					if count_send == 3:
+						print_debug("Server not responding after %d tries" % 3)
+						server_contact = false
+						cron_sync = sync_interval 
+						count_send = 0
+					cron_send = 3
 	
 		if socket.get_available_packet_count() > 0:
 			cron_sync = sync_interval

@@ -14,7 +14,7 @@ func _ready():
 
 func _clicked(node_number):
 	
-	
+	get_node("/root/App/Server").server_paused = true
 	self.position = Vector2(0, 0)
 	mop_present = false
 	$"VBoxContainer/Row mop".visible = false
@@ -114,3 +114,4 @@ func exit_checkui():
 	position = Vector2(0, -1200)
 	$"VBoxContainer/Row mop".visible = false
 	mop_selected = false
+	get_node("/root/App/Server").server_paused = false
