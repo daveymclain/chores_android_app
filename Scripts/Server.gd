@@ -85,13 +85,8 @@ func time_check(server_time):
 		Save.dict_save = parse_json(server_time)
 		var save_nodes = get_tree().get_nodes_in_group("Persist")
 
-#		for i in Save.dict_save.keys():
-#			if i == "save_time":
-#				continue
-#			print (dict[i].filename)
-#			Save.dict_save[dict[i]] = Save.dict_save[i]
-#			Save.dict_save.erase(i)
 		for i in save_nodes:
+		# the saved nodes are returned as strings. convert them back into node objects
 			Save.dict_save[i.node_number]["node"] = i
 		server_message = "check"	
 
