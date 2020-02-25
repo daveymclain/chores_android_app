@@ -3,6 +3,7 @@ extends Node2D
 var node = null
 var node_number
 var changed = false
+var changed_delay = false
 
 func _process(delta):
 	if not node == null:
@@ -29,25 +30,29 @@ func _on_Settings_pressed():
 	# Hours Row
 	find_node("MinsText").text = str(Save.dict_save[node_number]["clean_frequency"]["mins"])
 	find_node("MinsSlider").value = Save.dict_save[node_number]["clean_frequency"]["mins"]
+	changed_delay = true
 
 func _on_DaySlider_value_changed(value):
 	Save.dict_save[node_number]["clean_frequency"]["days"] = int(value)
 	Save.dict_save[node_number]["frequency_save"] = OS.get_unix_time()
 	find_node("DaysText").text = str(value)
-	changed = true
+	if changed_delay:
+		changed = true
 
 
 func _on_HoursSlider_value_changed(value):
 	Save.dict_save[node_number]["clean_frequency"]["hours"] = int(value)
 	Save.dict_save[node_number]["frequency_save"] = OS.get_unix_time()
 	find_node("HoursText").text = str(value)
-	changed = true
+	if changed_delay:
+		changed = true
 
 func _on_MinsSlider_value_changed(value):
 	Save.dict_save[node_number]["clean_frequency"]["mins"] = int(value)
 	Save.dict_save[node_number]["frequency_save"] = OS.get_unix_time()
 	find_node("MinsText").text = str(value)
-	changed = true
+	if changed_delay:
+		changed = true
 
 func update_time_left():
 	var time_left = Methods.time_left(Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
@@ -61,6 +66,8 @@ func _on_Exit_pressed():
 	get_node("/root/App/GroundFloor").position = Vector2(0, 0)
 	get_node("/root/App/UI").visible = true
 	get_node("/root/App/CheckUI").mop_selected = false
+	changed_delay = false
 	if changed:
+		print_debug("Settings changed")
 		Save.save()
 		changed = false

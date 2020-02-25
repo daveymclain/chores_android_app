@@ -11,7 +11,7 @@ var sync_interval = 10
 var cron_sync = 2
 var done = false
 onready var socket = PacketPeerUDP.new()
-var IP_SERVER = "192.168.0.213"
+var IP_SERVER =  "davidgossvpn.duckdns.org"
 var PORT_SERVER = 4242
 var PORT_CLIENT = 4243
 
@@ -50,6 +50,7 @@ func _process(delta):
 						server_contact = false
 						cron_sync = sync_interval 
 						count_send = 0
+						node_load.modulate = colour_blue
 					cron_send = 3
 	
 		if socket.get_available_packet_count() > 0:
