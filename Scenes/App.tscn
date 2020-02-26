@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Sprites/ground_floor_hi_res.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Sprites/load.png" type="Texture" id=24]
 [ext_resource path="res://Sprites/dining_room_table_dirt.png" type="Texture" id=25]
 [ext_resource path="res://Scripts/Server.gd" type="Script" id=26]
+[ext_resource path="res://Scripts/Zoom.gd" type="Script" id=27]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -691,6 +692,9 @@ script = ExtResource( 20 )
 
 [node name="Server" type="Node2D" parent="."]
 script = ExtResource( 26 )
+
+[node name="Zoom" type="Node2D" parent="."]
+script = ExtResource( 27 )
 [connection signal="timeout" from="StartDelay" to="." method="_on_StartDelay_timeout"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]

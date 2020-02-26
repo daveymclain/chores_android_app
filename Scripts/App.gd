@@ -2,7 +2,12 @@ extends Node2D
 
 var done = false
 onready var save_nodes = get_tree().get_nodes_in_group("Persist")
+
+
+
+
 func _ready():
+
 	$StartDelay.start(1)
 
 func _on_StartDelay_timeout():
