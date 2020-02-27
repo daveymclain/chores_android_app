@@ -33,10 +33,7 @@ func _ready():
 	
 # warning-ignore:unused_argument
 func _process(delta):
-#	if get_node("/root/App").done and ready == false:
-#		Save.dict_save[self] = {"time_start": time_start,
-#		"clean_frequency" : clean_frequency}
-#		ready = true
+
 	if get_node("/root/App").done:
 		var dirt_alpha = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
 				Save.dict_save[node_number]["time_start"], dirt_limit)[0]

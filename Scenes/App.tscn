@@ -1,8 +1,8 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
-[ext_resource path="res://Sprites/ground_floor_hi_res.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/3d/table_3d.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/kitchen_dirt_hi_res.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/3d/cooker.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Settings.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Methods.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/RussoOne-Regular.ttf" type="DynamicFontData" id=6]
@@ -10,24 +10,26 @@
 [ext_resource path="res://Scripts/Button.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/CheckUI.gd" type="Script" id=9]
 [ext_resource path="res://icon.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/living_room_dirt_hi_res.png" type="Texture" id=11]
-[ext_resource path="res://Sprites/hallway_floor_dirt.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/3d/ground_floor_3d.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/3d/hallwa_mop.png" type="Texture" id=12]
 [ext_resource path="res://Scripts/ZoomIn.gd" type="Script" id=13]
-[ext_resource path="res://Sprites/kitchen_counter_dirt.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/sofa_dirt.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/3d/kitchen_counters.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/3d/sofa_puff_3d.png" type="Texture" id=15]
 [ext_resource path="res://Scripts/Save.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/App.gd" type="Script" id=17]
-[ext_resource path="res://Sprites/living_room_mop_hi_res.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/3d/living_room_floor_3d.png" type="Texture" id=18]
 [ext_resource path="res://Scripts/Mop.gd" type="Script" id=19]
 [ext_resource path="res://Scripts/Temp.gd" type="Script" id=20]
-[ext_resource path="res://Sprites/kitchen_mop_hi_res.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/Hallway_mop.png" type="Texture" id=22]
-[ext_resource path="res://Sprites/cooker_dirt.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/3d/kitchen_floor_hoover.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/3d/hallway.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/3d/kitchen_floor_mop.png" type="Texture" id=23]
 [ext_resource path="res://Sprites/load.png" type="Texture" id=24]
-[ext_resource path="res://Sprites/dining_room_table_dirt.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/3d/living_room_floor_mop_3d.png" type="Texture" id=25]
 [ext_resource path="res://Scripts/Server.gd" type="Script" id=26]
 [ext_resource path="res://Scripts/Zoom.gd" type="Script" id=27]
 [ext_resource path="res://new_theme.tres" type="Theme" id=28]
+[ext_resource path="res://Sprites/3d/microwave.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/3d/fridge.png" type="Texture" id=30]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -142,8 +144,9 @@ script = ExtResource( 8 )
 [node name="GroundFloor" type="Node2D" parent="."]
 
 [node name="GroundFloors" type="Sprite" parent="GroundFloor"]
+position = Vector2( 1.52588e-05, 0 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 1 )
+texture = ExtResource( 11 )
 centered = false
 __meta__ = {
 "_edit_group_": true
@@ -168,12 +171,12 @@ clean_frequency = {
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 21 )
 centered = false
 
 [node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 21 )
+texture = ExtResource( 23 )
 centered = false
 script = ExtResource( 19 )
 clean_frequency = {
@@ -186,6 +189,7 @@ task_name = "Kitchen
 Mop"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_hoover"]
+visible = false
 position = Vector2( 569.418, -227.495 )
 polygon = PoolVector2Array( -367.495, 801.346, -235.899, 800.575, -235.899, 712.159, -291.416, 710.617, -290.902, 539.439, -367.752, 541.752, -368.009, 597.269, -541.243, 599.582, -542.015, 691.854, -368.009, 691.854 )
 
@@ -206,12 +210,12 @@ clean_frequency = {
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Living Room_hover"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 11 )
+texture = ExtResource( 18 )
 centered = false
 
 [node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Living Room_hover"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 18 )
+texture = ExtResource( 25 )
 centered = false
 script = ExtResource( 19 )
 __meta__ = {
@@ -220,12 +224,16 @@ __meta__ = {
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Living Room_hover"]
 position = Vector2( -495.797, -43.7983 )
-polygon = PoolVector2Array( 1037.86, 541.835, 843.385, 538.672, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 730.15, 800.309, 772.483, 885.927, 791.509, 904.477, 795.314, 847.874, 1016.97, 847.874, 1041.7, 850.728 )
+polygon = PoolVector2Array( 1019.5, 550.844, 842.366, 554.007, 842.88, 617.658, 842.88, 630.976, 815.292, 633.355, 816.719, 796.979, 796.266, 799.358, 741.361, 798.27, 775.031, 868.952, 791.509, 904.477, 799.15, 830.734, 1011.99, 839.728, 1016.79, 834.167 )
 
 [node name="Hallway_hoover" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
 task_name = "Hallway 
 Hoover"
+zoom_settings = {
+"position": Vector2( -150, -200 ),
+"scale": Vector2( 1.3, 1.3 )
+}
 clean_frequency = {
 "days": 0,
 "hours": 0,
@@ -234,11 +242,13 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Hallway_hoover"]
-texture = ExtResource( 12 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 22 )
 centered = false
 
 [node name="Mop" type="Sprite" parent="GroundFloor/CleaningArea/Hallway_hoover"]
-texture = ExtResource( 22 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 12 )
 centered = false
 script = ExtResource( 19 )
 clean_frequency = {
@@ -251,12 +261,14 @@ task_name = "Hallway
 Mop"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Hallway_hoover"]
-polygon = PoolVector2Array( 149.755, 765.519, 223.519, 765.287, 270.84, 862.481, 271.072, 887.533, 149.987, 889.852 )
+position = Vector2( -1.88937, 0 )
+polygon = PoolVector2Array( 154.635, 748.666, 222.644, 748.98, 259.109, 840.803, 273.468, 870.655, 157.272, 871.788 )
 
 [node name="Sofa_puff" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
 task_name = "Sofa 
 Puff"
+dirt_limit = 0.7
 zoom_settings = {
 "position": Vector2( 0, -100 ),
 "scale": Vector2( 1.6, 1.6 )
@@ -269,16 +281,17 @@ clean_frequency = {
 }
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Sofa_puff"]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 15 )
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Sofa_puff"]
-position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 278.473, 1048.73, 492.72, 1049.72, 492.72, 1099.88, 488.734, 1106.86, 485.744, 1126.12, 286.445, 1124.79, 284.784, 1104.53, 278.473, 1103.87 )
+position = Vector2( 25, -251.982 )
+polygon = PoolVector2Array( 278.473, 1048.73, 474.063, 1048.91, 474.063, 1097.61, 470.096, 1106.65, 476.707, 1125.82, 286.445, 1124.79, 284.784, 1104.53, 278.473, 1103.87 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Sofa_puff"]
 position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 294.324, 990.426, 236.801, 992.143, 234.225, 983.987, 217.484, 986.563, 215.766, 832.882, 234.225, 832.882, 234.225, 827.301, 294.324, 826.442 )
+polygon = PoolVector2Array( 292.84, 981.139, 236.358, 985.515, 234.225, 983.987, 217.484, 986.563, 215.766, 832.882, 234.225, 832.882, 234.225, 827.301, 294.324, 826.442 )
 
 [node name="Kitchen_counter" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -301,16 +314,16 @@ texture = ExtResource( 14 )
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
-position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 250.083, 551.446, 252.646, 719.757, 310.174, 720.612, 311.028, 550.022 )
+position = Vector2( 25, -238.099 )
+polygon = PoolVector2Array( 251.168, 619.497, 252.646, 719.757, 310.174, 720.612, 306.607, 618.106 )
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
 position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 125.629, 552.015, 125.06, 606.411, 175.468, 607.55, 176.322, 553.724 )
+polygon = PoolVector2Array( 132.665, 565.07, 132.11, 619.652, 180.442, 619.097, 181.136, 565.487 )
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Kitchen_counter"]
 position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 123.92, 702.955, 174.044, 703.809, 176.037, 758.204, 123.351, 759.059 )
+polygon = PoolVector2Array( 129.849, 710.594, 180.433, 710.448, 179.117, 759.862, 130.434, 758.985 )
 
 [node name="Dining_room_table" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -330,11 +343,11 @@ clean_frequency = {
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Dining_room_table"]
 modulate = Color( 1, 1, 0, 1 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 25 )
+texture = ExtResource( 1 )
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Dining_room_table"]
-position = Vector2( 24.3856, -238.099 )
+position = Vector2( 16.4966, -226.423 )
 polygon = PoolVector2Array( 375.548, 595.184, 457.919, 593.954, 457.305, 732.879, 375.548, 732.265 )
 
 [node name="Cooker_clean" type="Area2D" parent="GroundFloor/CleaningArea"]
@@ -354,12 +367,60 @@ clean_frequency = {
 
 [node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Cooker_clean"]
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 23 )
+texture = ExtResource( 3 )
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Cooker_clean"]
 position = Vector2( 24.3856, -238.099 )
-polygon = PoolVector2Array( 120.618, 702.716, 121.156, 759.075, 32.8472, 761.229, 32.6677, 701.998 )
+polygon = PoolVector2Array( 127.307, 708.819, 127, 759.294, 44.3607, 760.833, 45.438, 709.434 )
+
+[node name="Microwave_clean" type="Area2D" parent="GroundFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Microwave
+Clean"
+zoom_settings = {
+"position": Vector2( 0, -100 ),
+"scale": Vector2( 1.6, 1.6 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Microwave_clean"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 29 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Microwave_clean"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 255.64, 556.781, 254.098, 615.382, 308.073, 615.639, 308.587, 559.865 )
+
+[node name="Fridge_clean" type="Area2D" parent="GroundFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Fridge
+Clean"
+zoom_settings = {
+"position": Vector2( 0, -100 ),
+"scale": Vector2( 1.6, 1.6 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="GroundFloor/CleaningArea/Fridge_clean"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 30 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Fridge_clean"]
+position = Vector2( 24.3856, -238.099 )
+polygon = PoolVector2Array( 126.4, 761.794, 173.692, 759.995, 185.258, 766.935, 183.716, 810.115, 127.171, 810.115 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1200 )
@@ -441,7 +502,7 @@ __meta__ = {
 [node name="Yes" type="Button" parent="CheckUI/Row 2"]
 margin_left = 113.0
 margin_right = 263.0
-margin_bottom = 79.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.247059, 0.568627, 0.231373, 1 )
@@ -450,7 +511,7 @@ text = "Yes"
 [node name="No" type="Button" parent="CheckUI/Row 2"]
 margin_left = 313.0
 margin_right = 463.0
-margin_bottom = 79.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.309804, 0.145098, 0.145098, 1 )
@@ -732,13 +793,15 @@ script = ExtResource( 27 )
 [connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_counter" to="GroundFloor/CleaningArea/Kitchen_counter" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Dining_room_table" to="GroundFloor/CleaningArea/Dining_room_table" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Cooker_clean" to="GroundFloor/CleaningArea/Cooker_clean" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea/Microwave_clean" to="GroundFloor/CleaningArea/Microwave_clean" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="GroundFloor/CleaningArea/Fridge_clean" to="GroundFloor/CleaningArea/Fridge_clean" method="_on_LivingRoomHoover_input_event"]
 [connection signal="gui_input" from="CheckUI/ColorRect" to="CheckUI" method="_on_ColorRect_gui_input"]
 [connection signal="toggled" from="CheckUI/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
 [connection signal="toggled" from="CheckUI/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
 [connection signal="pressed" from="CheckUI/Row 2/Yes" to="CheckUI" method="_on_Yes_pressed"]
 [connection signal="pressed" from="CheckUI/Row 2/No" to="CheckUI" method="_on_No_pressed"]
-[connection signal="pressed" from="CheckUI/Row 3/Settings" to="CheckUI" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
+[connection signal="pressed" from="CheckUI/Row 3/Settings" to="CheckUI" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/Row 4/Zoom" to="CheckUI" method="_on_Zoom_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]
