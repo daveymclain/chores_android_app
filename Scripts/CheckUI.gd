@@ -1,6 +1,7 @@
 extends Node2D
 
 var node_testing = null
+var node_numbers = null
 var mop_present = false
 var mop_selected = false
 var mop_colour = Color(0, 0, 1)
@@ -11,33 +12,41 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("Persist"):
 		node.connect("clicked", self, "_clicked")
 
-func _clicked(node):
-	Methods.flash_start(node.get_node("Dirt"), true)
+func _clicked(node_number):
+	
+	get_node("/root/App/Server").server_paused = true
 	self.position = Vector2(0, 0)
 	mop_present = false
-	$"VBoxContainer/Row mop".visible = false
-	if node.get_node("Mop"):
+	$"Row mop".visible = false
+	$"Row 1".visible = true
+	if Save.dict_save[node_number]["node"].get_node("Mop"):
 		mop_present = true
-		$"VBoxContainer/Row mop".visible = true
+		$"Row mop".visible = true
+		$"Row 1".visible = false
 	else:
 		mop_present = false
-	node_testing = node
+		
+	node_numbers = node_number
+	print(node_number)
+	node_testing = Save.dict_save[node_number]["node"]
 	# Reset hoover and mop buttons.
-	$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
-	$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
+	$"Row mop/HBoxContainer/HooverButton".pressed = false
+	$"Row mop/HBoxContainer/MopButton".pressed = true
 	
-	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
-
+	$"Row 1/CheckLabel".text = node_testing.task_name
+	Methods.flash_start(node_testing.get_node("Dirt"), true)
+	
 
 
 func _on_Yes_pressed():
-	if $"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed:
-		node_testing.get_node("Mop").time_start = OS.get_unix_time()
+	if $"Row mop/HBoxContainer/MopButton".pressed:
+		var num = node_testing.get_node("Mop").node_number
+		Save.dict_save[num]["time_start"] = OS.get_unix_time()
 	else:
-		node_testing.time_start = OS.get_unix_time()
-	Undo.add_input([node_testing, node_testing.time_start])
+		Save.dict_save[node_numbers]["time_start"] = OS.get_unix_time()
+#	Undo.add_input([node_testing, node_testing.time_start])
 	exit_checkui()
-	Save.save_app()
+	Save.save()
 	
 func _on_No_pressed():
 	exit_checkui()
@@ -50,59 +59,76 @@ func _on_Zoom_pressed():
 
 
 func _on_HooverButton_toggled(button_pressed):
+	print("hoover button ", button_pressed)
 	if button_pressed:
-		$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = false
-		set_task_name(node_testing, dirt_colour)
-
-		mop_selected = false
+		$"Row mop/HBoxContainer/MopButton".pressed = false
 	else:
-		set_task_name(node_testing.get_node("Mop"), mop_colour)
-		$"VBoxContainer/Row mop/HBoxContainer/MopButton".pressed = true
-		mop_selected = true
+		
+		$"Row mop/HBoxContainer/MopButton".pressed = true
+		
 
 func _on_MopButton_toggled(button_pressed):
+	print("mop button ", button_pressed)
 	if button_pressed:
-		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = false
-		set_task_name(node_testing.get_node("Mop"), mop_colour)
-		switch_selection(false)
-		mop_selected = true
-	else:
-		set_task_name(node_testing, dirt_colour)
-		$"VBoxContainer/Row mop/HBoxContainer/HooverButton".pressed = true
+		$"Row mop/HBoxContainer/HooverButton".pressed = false
 		switch_selection(true)
 		mop_selected = false
-	
-func set_task_name(node, colour):
-	$"VBoxContainer/Row 1/CheckLabel".text = node.task_name
-	$"VBoxContainer/Row 1/CheckLabel".set("custom_colors/font_color", colour)
-
-func _on_ColorRect_gui_input(event):
-	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
-		exit_checkui()
-
-func _on_Settings_pressed():
-	if mop_selected:
-		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
-		Methods.flash_start(node_testing.get_node("Dirt"), false)
+		$"Row mop/HBoxContainer/HooverButton".pressed = true
+		switch_selection(false)
+		mop_selected = true
 
 func switch_selection(dirt):
-	if mop_selected:
+	
+	if mop_present:
 		if dirt:
 			Methods.flash_start(node_testing.get_node("Mop"), false)
 			Methods.flash_start(node_testing.get_node("Dirt"), true)
 		else:
 			Methods.flash_start(node_testing.get_node("Dirt"), false)
 			Methods.flash_start(node_testing.get_node("Mop"), true)
+
+func button_toggle(button):
+	var hoover = $"Row mop/HBoxContainer/HooverButton".pressed
+	var mop = $"Row mop/HBoxContainer/MopButton".pressed 
+	
+	if hoover:
+		mop = false
+	else:
+		mop = true
 		
-func exit_checkui():
-	# Clean up when leaving menu
+	if mop:
+		hoover = false
+	else:
+		hoover = true
+
+
+
+func set_task_name(node, colour):
+	$"Row 1/CheckLabel".text = node.task_name
+	$"Row 1/CheckLabel".set("custom_colors/font_color", colour)
+
+func _on_ColorRect_gui_input(event):
+	if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
+		exit_checkui()
+
+
+func _on_Settings_pressed():
 	
 	if mop_selected:
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
 		Methods.flash_start(node_testing.get_node("Dirt"), false)
+	
+
+
+func exit_checkui():
+	# Clean up when leaving menu
+	if mop_selected:
+		Methods.flash_start(node_testing.get_node("Mop"), false)
+	else:
+		Methods.flash_start(node_testing.get_node("Dirt"), false)
 	position = Vector2(0, -1200)
-	$"VBoxContainer/Row mop".visible = false
+	$"Row mop".visible = false
 	mop_selected = false
-	node_testing = null
+	get_node("/root/App/Server").server_paused = false

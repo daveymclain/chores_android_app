@@ -23,7 +23,7 @@ config/icon="res://icon.png"
 
 Methods="*res://Scripts/Methods.gd"
 Undo="*res://Scripts/Undo.gd"
-Save="*res://Scripts/Save.gd"
+Save="*res://Scripts/Save_2.gd"
 Temp="*res://Scripts/Temp.gd"
 
 [display]
@@ -31,6 +31,7 @@ Temp="*res://Scripts/Temp.gd"
 window/size/width=576
 window/size/height=1184
 window/dpi/allow_hidpi=true
+window/energy_saving/keep_screen_on=false
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
