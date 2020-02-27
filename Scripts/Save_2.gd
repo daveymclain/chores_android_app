@@ -25,7 +25,8 @@ func load_save():
 	
 	for i in save_nodes:
 
-		if len(dict_save) > int(i.node_number):
+
+		if i.node_number in dict_save.keys():
 			dict_save[i.node_number]["node"] = i
 			
 		else:
