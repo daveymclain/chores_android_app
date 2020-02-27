@@ -88,7 +88,7 @@ func time_check(server_time):
 		for i in save_nodes:
 		# the saved nodes are returned as strings. convert them back into node objects
 			Save.dict_save[i.node_number]["node"] = i
-		server_message = "check"	
+		server_message = "check"
 
 	
 func start_client():
