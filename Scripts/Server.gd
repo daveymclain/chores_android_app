@@ -82,14 +82,26 @@ func time_check(server_time):
 			node_load.modulate = colour_green
 	else:
 		print("updating from server") 
-		Save.dict_save = parse_json(server_time)
-		var save_nodes = get_tree().get_nodes_in_group("Persist")
+		update_from_server(server_time)
+		
 
-		for i in save_nodes:
-		# the saved nodes are returned as strings. convert them back into node objects
-			Save.dict_save[i.node_number]["node"] = i
-		server_message = "check"
 
+
+func update_from_server(server_data):
+	var dict_client = Save.dict_save
+	var dict_server = parse_json(server_data)
+	
+	for i in dict_client.keys():
+		if not dict_server.has(i):
+			print("client has a new node skip and update it later")
+			continue
+		dict_client[i] = dict_server[i]
+	Save.dict_save = dict_client
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	for i in save_nodes:
+	# the saved nodes are returned as strings. convert them back into node objects
+		Save.dict_save[i.node_number]["node"] = i
+	server_message = "check"
 	
 func start_client():
 	if (socket.listen(PORT_CLIENT, "*") != OK):
