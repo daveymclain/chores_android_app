@@ -9,7 +9,12 @@ onready var save_nodes = get_tree().get_nodes_in_group("Persist")
 func _ready():
 
 	$StartDelay.start(1)
-
+	if Engine.has_singleton("GodotLocalNotification"):
+		var ln = Engine.get_singleton("GodotLocalNotification")
+		ln.showLocalNotification("Message", "Title or application name", 20, 1)
+		# 20 is an interval in seconds
+		# 1 is a notification tag
+		# you can override the notification with the same tag before it was fired
 func _on_StartDelay_timeout():
 	save_nodes = get_tree().get_nodes_in_group("Persist")
 	var node_number = 0 
@@ -38,3 +43,4 @@ func _on_StartDelay_timeout():
 		
 		Save.dict_save["save_time"] = 0
 		done = true
+		
