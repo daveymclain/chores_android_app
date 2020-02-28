@@ -2,25 +2,31 @@ extends Node2D
 
 var server_paused = false
 onready var node_load = get_node("/root/App/UI/HBoxContainer/Load")
+
 var colour_red = Color(1,0,0)
 var colour_yellow = Color(1,1,0)
 var colour_green = Color(0,1,0)
 var colour_blue = Color(0,0,1)
+
 # Seconds between sync with server
 var sync_interval = 10
+# Delay to start server and runing time
 var cron_sync = 2
-var done = false
+# If server not responding resend delay
+var retry_interval = 2
+
+
 onready var socket = PacketPeerUDP.new()
+
 var IP_SERVER =  "davidgossvpn.duckdns.org"
 var PORT_SERVER = 4242
 var PORT_CLIENT = 4243
 
-var cron_send = 2
 
-var server_contact = false
 
 # time out server if no response
 var count_send = 0
+var send_trys = 3
 
 var server_message = "check"
 
@@ -29,36 +35,30 @@ func _ready():
 	
 func _process(delta):
 	if not server_paused:
-		if cron_sync > 0:
+		if not cron_sync <= 0:
 			cron_sync -= delta
-		if cron_sync <= 0:
-			server_contact = true
-		if server_contact:
-			if cron_send > 0:
-				cron_send -= delta	
-			if cron_send <= 0:
-				if socket.is_listening():
-					socket.set_dest_address(IP_SERVER, PORT_SERVER)
-					var staging = server_message
-					var package = staging.to_ascii()
-					socket.put_packet(package)
-					
-					print_debug("send!")
-					count_send += 1
-					if count_send == 3:
-						print_debug("Server not responding after %d tries" % 3)
-						server_contact = false
-						cron_sync = sync_interval 
-						count_send = 0
-						node_load.modulate = colour_blue
-					cron_send = 3
-	
+		else:
+			if socket.is_listening():
+				socket.set_dest_address(IP_SERVER, PORT_SERVER)
+				var staging = server_message
+				var package = staging.to_ascii()
+				socket.put_packet(package)
+				print("send!")
+				# time out
+				count_send += 1
+				cron_sync += 0.5
+				if count_send == send_trys:
+					print_debug("Server not responding after %d tries" % send_trys)
+					cron_sync = retry_interval 
+					count_send = 0
+					node_load.modulate = colour_blue
+
 		if socket.get_available_packet_count() > 0:
-			cron_sync = sync_interval
 			var array_bytes = socket.get_packet()
-			print_debug("msg from server: " + array_bytes.get_string_from_ascii())
+			print("msg from server: " + array_bytes.get_string_from_ascii())
 			time_check(array_bytes.get_string_from_ascii())
-			server_contact = false
+			count_send = 0
+			
 			
 
 func time_check(server_time):
@@ -69,23 +69,28 @@ func time_check(server_time):
 			if Save.dict_save["save_time"] > server_time:
 				print("server needs to update")
 				server_message = to_json(Save.dict_save)
-				cron_sync = 1
+				cron_sync = 0
 				node_load.modulate = colour_blue
 			else:
 				print("Client need to update")
+				cron_sync = 0
 				server_message = "send"
-				cron_sync = 1
+				cron_sync = 0
 				node_load.modulate = colour_yellow
 		else:
 			print("server and client is up to date")
+			cron_sync = sync_interval
 			server_message = "check"
 			node_load.modulate = colour_green
 	else:
 		print("updating from server") 
 		update_from_server(server_time)
-		
+		cron_sync = 0
 
-
+func update_server():
+	print("updateing server")
+	cron_sync = 0
+	server_message = to_json(Save.dict_save)
 
 func update_from_server(server_data):
 	var dict_client = Save.dict_save
