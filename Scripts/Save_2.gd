@@ -23,16 +23,17 @@ func load_save():
 	dict_save = parse_json(file.get_line())
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	
-#	for i in dict_save.keys():
-#		if i == "save_time":
-#			continue
-#		dict_save[i]["node"]
-#		dict_save[dict[i]] = dict_save[i]
-#		dict_save.erase(i)	
 	for i in save_nodes:
-		print(i)
-		print(i.node_number)
-		dict_save[i.node_number]["node"] = i
+
+
+		if i.node_number in dict_save.keys():
+			dict_save[i.node_number]["node"] = i
+			
+		else:
+			print("new node added")
+			dict_save[i.node_number] = i.call("save")
+			continue
+
 	file.close()
 	return loaded
 

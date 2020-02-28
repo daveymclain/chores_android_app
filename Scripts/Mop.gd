@@ -9,8 +9,6 @@ var node_number
 
 func _ready():
 	add_to_group("Persist")
-	if not Temp.loaded:
-		time_start = OS.get_unix_time()
 
 func _process(delta):
 #	if get_node("/root/App").done and ready == false:

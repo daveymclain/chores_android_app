@@ -15,8 +15,6 @@ func save_app():
 	save_game.store_line(to_json({"save_time" : save_time}))
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 	for node in save_nodes:
-
-
 		# Check the node has a save function
 		if !node.has_method("save"):
 			print("persistent node '%s' is missing a save() function, skipped" % node.name)

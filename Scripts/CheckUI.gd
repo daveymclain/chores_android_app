@@ -39,7 +39,7 @@ func _clicked(node_number):
 
 
 func _on_Yes_pressed():
-	if $"Row mop/HBoxContainer/MopButton".pressed:
+	if not $"Row mop/HBoxContainer/MopButton".pressed:
 		var num = node_testing.get_node("Mop").node_number
 		Save.dict_save[num]["time_start"] = OS.get_unix_time()
 	else:
