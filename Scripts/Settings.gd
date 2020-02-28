@@ -54,6 +54,7 @@ func _on_MinsSlider_value_changed(value):
 	if changed_delay:
 		changed = true
 
+
 func update_time_left():
 	var time_left = Methods.time_left(Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
 		Save.dict_save[node_number]["time_start"], Save.dict_save[node_number]["node"].dirt_limit)[2])
@@ -71,3 +72,10 @@ func _on_Exit_pressed():
 		print_debug("Settings changed")
 		Save.save()
 		changed = false
+
+
+func _on_Add_Dirt_pressed():
+# take an hour of time_start
+	Save.dict_save[node_number]["time_start"] -= 3600
+	Save.dict_save[node_number]["override"] = true
+	Save.save()
