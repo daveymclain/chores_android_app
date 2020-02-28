@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Sprites/3d/table_3d.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://Sprites/3d/microwave.png" type="Texture" id=29]
 [ext_resource path="res://Sprites/3d/fridge.png" type="Texture" id=30]
 [ext_resource path="res://Sprites/3d/stairs.png" type="Texture" id=31]
+[ext_resource path="res://dark style box.tres" type="StyleBox" id=32]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -51,6 +52,23 @@ font_data = ExtResource( 6 )
 [sub_resource type="DynamicFont" id=5]
 size = 50
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 60
+
+[sub_resource type="Theme" id=8]
+default_font = SubResource( 7 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = ExtResource( 32 )
+Button/styles/pressed = null
 
 [sub_resource type="DynamicFont" id=6]
 size = 60
@@ -596,18 +614,36 @@ __meta__ = {
 position = Vector2( -700, 0 )
 script = ExtResource( 4 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+[node name="ColorRect" type="ColorRect" parent="Settings"]
 margin_right = 576.0
-margin_bottom = 40.0
+margin_bottom = 1184.0
+color = Color( 0.27451, 0.345098, 0.505882, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Row 1" type="HBoxContainer" parent="Settings/VBoxContainer"]
+[node name="RectTop" type="ColorRect" parent="Settings"]
+margin_right = 576.0
+margin_bottom = 153.0
+color = Color( 0.105882, 0.164706, 0.286275, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RectBottom" type="ColorRect" parent="Settings"]
+margin_top = 1065.0
+margin_right = 576.0
+margin_bottom = 1194.0
+color = Color( 0.105882, 0.164706, 0.286275, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Row 1" type="HBoxContainer" parent="Settings"]
 margin_right = 576.0
 margin_bottom = 149.0
 
-[node name="TaskText" type="Label" parent="Settings/VBoxContainer/Row 1"]
+[node name="TaskText" type="Label" parent="Settings/Row 1"]
 margin_right = 576.0
 margin_bottom = 149.0
 rect_min_size = Vector2( 576, 0 )
@@ -616,16 +652,16 @@ text = "Living Room
 Hoover"
 align = 1
 
-[node name="Row Days" type="HBoxContainer" parent="Settings/VBoxContainer"]
+[node name="Row Days" type="HBoxContainer" parent="Settings"]
 margin_top = 153.0
 margin_right = 576.0
 margin_bottom = 358.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Days"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Row Days"]
 margin_right = 576.0
 margin_bottom = 205.0
 
-[node name="DaysText" type="Label" parent="Settings/VBoxContainer/Row Days/VBoxContainer"]
+[node name="DaysText" type="Label" parent="Settings/Row Days/VBoxContainer"]
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
@@ -633,14 +669,14 @@ custom_fonts/font = SubResource( 4 )
 text = "0"
 align = 1
 
-[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Days/VBoxContainer"]
+[node name="Row 3" type="HBoxContainer" parent="Settings/Row Days/VBoxContainer"]
 margin_top = 77.0
 margin_right = 576.0
 margin_bottom = 205.0
 custom_constants/separation = 19
 alignment = 1
 
-[node name="Days" type="Label" parent="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3"]
+[node name="Days" type="Label" parent="Settings/Row Days/VBoxContainer/Row 3"]
 margin_left = 27.0
 margin_top = 33.0
 margin_right = 180.0
@@ -649,7 +685,7 @@ rect_min_size = Vector2( 153, 0 )
 custom_fonts/font = SubResource( 5 )
 text = "Days"
 
-[node name="DaySlider" type="HSlider" parent="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3"]
+[node name="DaySlider" type="HSlider" parent="Settings/Row Days/VBoxContainer/Row 3"]
 margin_left = 199.0
 margin_right = 549.0
 margin_bottom = 128.0
@@ -659,16 +695,16 @@ custom_icons/grabber = ExtResource( 10 )
 max_value = 28.0
 tick_count = 1
 
-[node name="Row Hours" type="HBoxContainer" parent="Settings/VBoxContainer"]
+[node name="Row Hours" type="HBoxContainer" parent="Settings"]
 margin_top = 362.0
 margin_right = 576.0
 margin_bottom = 567.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Hours"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Row Hours"]
 margin_right = 576.0
 margin_bottom = 205.0
 
-[node name="HoursText" type="Label" parent="Settings/VBoxContainer/Row Hours/VBoxContainer"]
+[node name="HoursText" type="Label" parent="Settings/Row Hours/VBoxContainer"]
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
@@ -676,14 +712,14 @@ custom_fonts/font = SubResource( 4 )
 text = "0"
 align = 1
 
-[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Hours/VBoxContainer"]
+[node name="Row 3" type="HBoxContainer" parent="Settings/Row Hours/VBoxContainer"]
 margin_top = 77.0
 margin_right = 576.0
 margin_bottom = 205.0
 custom_constants/separation = 19
 alignment = 1
 
-[node name="Hours" type="Label" parent="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3"]
+[node name="Hours" type="Label" parent="Settings/Row Hours/VBoxContainer/Row 3"]
 margin_left = 27.0
 margin_top = 33.0
 margin_right = 180.0
@@ -692,7 +728,7 @@ rect_min_size = Vector2( 153, 0 )
 custom_fonts/font = SubResource( 5 )
 text = "Hours"
 
-[node name="HoursSlider" type="HSlider" parent="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3"]
+[node name="HoursSlider" type="HSlider" parent="Settings/Row Hours/VBoxContainer/Row 3"]
 margin_left = 199.0
 margin_right = 549.0
 margin_bottom = 128.0
@@ -701,16 +737,20 @@ custom_icons/grabber_highlight = ExtResource( 10 )
 custom_icons/grabber = ExtResource( 10 )
 max_value = 24.0
 
-[node name="Row Mins" type="HBoxContainer" parent="Settings/VBoxContainer"]
+[node name="Row Mins" type="HBoxContainer" parent="Settings"]
+visible = false
 margin_top = 571.0
 margin_right = 576.0
 margin_bottom = 776.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Mins"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Row Mins"]
 margin_right = 576.0
 margin_bottom = 205.0
 
-[node name="MinsText" type="Label" parent="Settings/VBoxContainer/Row Mins/VBoxContainer"]
+[node name="MinsText" type="Label" parent="Settings/Row Mins/VBoxContainer"]
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
@@ -718,14 +758,14 @@ custom_fonts/font = SubResource( 4 )
 text = "0"
 align = 1
 
-[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Mins/VBoxContainer"]
+[node name="Row 3" type="HBoxContainer" parent="Settings/Row Mins/VBoxContainer"]
 margin_top = 77.0
 margin_right = 576.0
 margin_bottom = 205.0
 custom_constants/separation = 19
 alignment = 1
 
-[node name="Mins" type="Label" parent="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3"]
+[node name="Mins" type="Label" parent="Settings/Row Mins/VBoxContainer/Row 3"]
 margin_left = 27.0
 margin_top = 33.0
 margin_right = 180.0
@@ -734,7 +774,7 @@ rect_min_size = Vector2( 153, 0 )
 custom_fonts/font = SubResource( 5 )
 text = "Mins"
 
-[node name="MinsSlider" type="HSlider" parent="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3"]
+[node name="MinsSlider" type="HSlider" parent="Settings/Row Mins/VBoxContainer/Row 3"]
 margin_left = 199.0
 margin_right = 549.0
 margin_bottom = 128.0
@@ -743,16 +783,34 @@ custom_icons/grabber_highlight = ExtResource( 10 )
 custom_icons/grabber = ExtResource( 10 )
 max_value = 60.0
 
-[node name="Row Time Left" type="HBoxContainer" parent="Settings/VBoxContainer"]
+[node name="Row Add Dirt" type="HBoxContainer" parent="Settings"]
+margin_top = 644.0
+margin_right = 576.0
+margin_bottom = 723.0
+theme = SubResource( 8 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Add Dirt" type="Button" parent="Settings/Row Add Dirt"]
+margin_left = 138.0
+margin_right = 438.0
+margin_bottom = 79.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 6 )
+text = "Add Dirt"
+
+[node name="Row Time Left" type="HBoxContainer" parent="Settings"]
 margin_top = 780.0
 margin_right = 576.0
 margin_bottom = 982.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/VBoxContainer/Row Time Left"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/Row Time Left"]
 margin_right = 576.0
 margin_bottom = 202.0
 
-[node name="Time left Heading" type="Label" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer"]
+[node name="Time left Heading" type="Label" parent="Settings/Row Time Left/VBoxContainer"]
 margin_right = 576.0
 margin_bottom = 73.0
 rect_min_size = Vector2( 576, 0 )
@@ -760,14 +818,14 @@ custom_fonts/font = SubResource( 4 )
 text = "Time Left"
 align = 1
 
-[node name="Row 3" type="HBoxContainer" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer"]
+[node name="Row 3" type="HBoxContainer" parent="Settings/Row Time Left/VBoxContainer"]
 margin_top = 77.0
 margin_right = 576.0
 margin_bottom = 202.0
 custom_constants/separation = 19
 alignment = 1
 
-[node name="TimeLeftText" type="Label" parent="Settings/VBoxContainer/Row Time Left/VBoxContainer/Row 3"]
+[node name="TimeLeftText" type="Label" parent="Settings/Row Time Left/VBoxContainer/Row 3"]
 margin_left = 88.0
 margin_right = 488.0
 margin_bottom = 125.0
@@ -778,16 +836,21 @@ text = "1 Day 3 hours
 align = 1
 autowrap = true
 
-[node name="Row Exit" type="HBoxContainer" parent="Settings/VBoxContainer"]
-margin_top = 986.0
+[node name="Row Exit" type="HBoxContainer" parent="Settings"]
+margin_top = 1087.79
 margin_right = 576.0
-margin_bottom = 1065.0
+margin_bottom = 1166.79
+theme = ExtResource( 28 )
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Exit" type="Button" parent="Settings/VBoxContainer/Row Exit"]
-margin_left = 224.0
-margin_right = 352.0
+[node name="Exit" type="Button" parent="Settings/Row Exit"]
+margin_left = 188.0
+margin_right = 388.0
 margin_bottom = 79.0
+rect_min_size = Vector2( 200, 0 )
 custom_fonts/font = SubResource( 6 )
 text = "Exit"
 
@@ -829,7 +892,8 @@ script = ExtResource( 27 )
 [connection signal="pressed" from="CheckUI/Row 3/Settings" to="CheckUI" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/Row 3/Settings" to="Settings" method="_on_Settings_pressed"]
 [connection signal="pressed" from="CheckUI/Row 4/Zoom" to="CheckUI" method="_on_Zoom_pressed"]
-[connection signal="value_changed" from="Settings/VBoxContainer/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
-[connection signal="value_changed" from="Settings/VBoxContainer/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]
-[connection signal="value_changed" from="Settings/VBoxContainer/Row Mins/VBoxContainer/Row 3/MinsSlider" to="Settings" method="_on_MinsSlider_value_changed"]
-[connection signal="pressed" from="Settings/VBoxContainer/Row Exit/Exit" to="Settings" method="_on_Exit_pressed"]
+[connection signal="value_changed" from="Settings/Row Days/VBoxContainer/Row 3/DaySlider" to="Settings" method="_on_DaySlider_value_changed"]
+[connection signal="value_changed" from="Settings/Row Hours/VBoxContainer/Row 3/HoursSlider" to="Settings" method="_on_HoursSlider_value_changed"]
+[connection signal="value_changed" from="Settings/Row Mins/VBoxContainer/Row 3/MinsSlider" to="Settings" method="_on_MinsSlider_value_changed"]
+[connection signal="pressed" from="Settings/Row Add Dirt/Add Dirt" to="Settings" method="_on_Add_Dirt_pressed"]
+[connection signal="pressed" from="Settings/Row Exit/Exit" to="Settings" method="_on_Exit_pressed"]

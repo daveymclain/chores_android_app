@@ -47,6 +47,8 @@ func _on_Yes_pressed():
 #	Undo.add_input([node_testing, node_testing.time_start])
 	exit_checkui()
 	Save.save()
+	Save.dict_save[node_numbers]["override"] = false
+	
 	
 func _on_No_pressed():
 	exit_checkui()
