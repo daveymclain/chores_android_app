@@ -28,6 +28,7 @@ func save():
 		"clean_frequency" : clean_frequency,
 		"frequency_save" : 0,
 		"time_start" : time_start,
-		"override" : false
+		"override" : false,
+		"name" : self.name
 	}
 	return save_dict

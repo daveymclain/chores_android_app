@@ -16,6 +16,15 @@ func load_save():
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
 # convert string names from save file into node ojects
 	for i in save_nodes:
+		print("node number=", i.node_number)
+#		if int(dict_save["node_number"] < i.node_number):
+#			dict_save[i.node_number]["node"] = i
+#		else:
+#			print("new node added")
+#			dict_save[i.node_number] = i.call("save")
+#			continue
+		
+		
 		if i.node_number in dict_save.keys():
 			dict_save[i.node_number]["node"] = i
 		else:
@@ -23,6 +32,8 @@ func load_save():
 			dict_save[i.node_number] = i.call("save")
 			continue
 	file.close()
+	print("dict from load", dict_save)
+	print("node amount: = ", len(save_nodes))
 	return loaded
 
 func save():

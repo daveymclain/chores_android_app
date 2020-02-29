@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Sprites/3d/table_3d.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
@@ -32,6 +32,13 @@
 [ext_resource path="res://Sprites/3d/fridge.png" type="Texture" id=30]
 [ext_resource path="res://Sprites/3d/stairs.png" type="Texture" id=31]
 [ext_resource path="res://dark style box.tres" type="StyleBox" id=32]
+[ext_resource path="res://Sprites/3d/top floor.png" type="Texture" id=33]
+[ext_resource path="res://Sprites/3d/UpStairs/bathroom_floor_hoover.png" type="Texture" id=34]
+[ext_resource path="res://Sprites/3d/UpStairs/bathroom_floor_mop.png" type="Texture" id=35]
+[ext_resource path="res://Sprites/3d/UpStairs/toilet.png" type="Texture" id=36]
+[ext_resource path="res://Sprites/3d/UpStairs/bath.png" type="Texture" id=37]
+[ext_resource path="res://Sprites/3d/UpStairs/basin.png" type="Texture" id=38]
+[ext_resource path="res://Sprites/3d/UpStairs/stairs and landing.png" type="Texture" id=39]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -53,11 +60,11 @@ font_data = ExtResource( 6 )
 size = 50
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 size = 60
 
-[sub_resource type="Theme" id=8]
-default_font = SubResource( 7 )
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
 Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
@@ -65,12 +72,12 @@ Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = null
 Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = null
+Button/styles/focus = ExtResource( 32 )
+Button/styles/hover = ExtResource( 32 )
 Button/styles/normal = ExtResource( 32 )
 Button/styles/pressed = null
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=8]
 size = 60
 font_data = ExtResource( 6 )
 
@@ -110,55 +117,6 @@ color = Color( 0.0862745, 0.121569, 0.2, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="UI" type="Node2D" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-margin_right = 576.0
-margin_bottom = 100.0
-theme = ExtResource( 28 )
-alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Load" type="Sprite" parent="UI/HBoxContainer"]
-modulate = Color( 1, 0, 0, 1 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 24 )
-centered = false
-
-[node name="MarginContainer2" type="MarginContainer" parent="UI/HBoxContainer"]
-margin_left = 122.0
-margin_right = 402.0
-margin_bottom = 100.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-
-[node name="Zoomout" type="Button" parent="UI/HBoxContainer/MarginContainer2"]
-margin_top = 20.0
-margin_right = 260.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 260, 0 )
-custom_fonts/font = SubResource( 1 )
-text = "Zoom out"
-script = ExtResource( 13 )
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer"]
-margin_left = 406.0
-margin_right = 576.0
-margin_bottom = 100.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-
-[node name="Button" type="Button" parent="UI/HBoxContainer/MarginContainer"]
-margin_top = 20.0
-margin_right = 150.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 150, 0 )
-custom_fonts/font = SubResource( 1 )
-text = "Undo"
-script = ExtResource( 8 )
 
 [node name="GroundFloor" type="Node2D" parent="."]
 
@@ -464,6 +422,233 @@ centered = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Fridge_clean"]
 position = Vector2( 24.3856, -238.099 )
 polygon = PoolVector2Array( 126.4, 761.794, 173.692, 759.995, 185.258, 766.935, 183.716, 810.115, 127.171, 810.115 )
+
+[node name="TopFloor" type="Node2D" parent="."]
+position = Vector2( 1000, 0 )
+
+[node name="GroundFloors" type="Sprite" parent="TopFloor"]
+position = Vector2( 1.52588e-05, 0 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 33 )
+centered = false
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CleaningArea" type="Node2D" parent="TopFloor"]
+
+[node name="BathroomFloor" type="Area2D" parent="TopFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Bathroom
+Hoover"
+zoom_settings = {
+"position": Vector2( -310, -370 ),
+"scale": Vector2( 2.3, 2.3 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="TopFloor/CleaningArea/BathroomFloor"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 34 )
+centered = false
+
+[node name="Mop" type="Sprite" parent="TopFloor/CleaningArea/BathroomFloor"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 35 )
+centered = false
+script = ExtResource( 19 )
+clean_frequency = {
+"days": 0,
+"hours": 1,
+"mins": 0,
+"secs": 0
+}
+task_name = "Bathroom
+Mop"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopFloor/CleaningArea/BathroomFloor"]
+position = Vector2( 333.696, -224.024 )
+polygon = PoolVector2Array( 12.88, 693.496, 13.3815, 621.173, -31.9933, 622.802, -32.996, 596.229, -73.3569, 599.363, -93.412, 600.491, -92.9106, 679.082, -93.412, 691.365 )
+
+[node name="Toilet" type="Area2D" parent="TopFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Toilet
+Clean"
+zoom_settings = {
+"position": Vector2( -310, -370 ),
+"scale": Vector2( 2.3, 2.3 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="TopFloor/CleaningArea/Toilet"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 36 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopFloor/CleaningArea/Toilet"]
+position = Vector2( 278.236, -66.0394 )
+polygon = PoolVector2Array( 23.938, 421.09, 24.8373, 461.26, 68.0057, 461.56, 72.2026, 416.893, 22.4391, 417.192 )
+
+[node name="Bath" type="Area2D" parent="TopFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Bath
+Clean"
+zoom_settings = {
+"position": Vector2( -310, -370 ),
+"scale": Vector2( 2.3, 2.3 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="TopFloor/CleaningArea/Bath"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 37 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopFloor/CleaningArea/Bath"]
+position = Vector2( 278.236, -66.0394 )
+polygon = PoolVector2Array( -88.2969, 417.566, -39.6869, 417.844, -39.6869, 530.62, -96.2134, 528.536, -98.1578, 416.178 )
+
+[node name="Basin" type="Area2D" parent="TopFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Basin
+Clean"
+zoom_settings = {
+"position": Vector2( -310, -370 ),
+"scale": Vector2( 2.3, 2.3 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="TopFloor/CleaningArea/Basin"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 38 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopFloor/CleaningArea/Basin"]
+position = Vector2( 197.638, -63.7116 )
+polygon = PoolVector2Array( 41.8783, 394.31, 101.139, 393.728, 101.43, 432.912, 55.0688, 439.41, 47.6976, 433.494, 41.1024, 399.451 )
+
+[node name="StairsLanding" type="Area2D" parent="TopFloor/CleaningArea"]
+script = ExtResource( 2 )
+task_name = "Stairs and Landing
+Hoover"
+zoom_settings = {
+"position": Vector2( -310, -370 ),
+"scale": Vector2( 2.3, 2.3 )
+}
+clean_frequency = {
+"days": 0,
+"hours": 0,
+"mins": 1,
+"secs": 0
+}
+
+[node name="Dirt" type="Sprite" parent="TopFloor/CleaningArea/StairsLanding"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 39 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopFloor/CleaningArea/StairsLanding"]
+position = Vector2( 197.638, -63.7116 )
+scale = Vector2( 0.78505, 0.996126 )
+polygon = PoolVector2Array( 2.81042, 548.486, -6.83923, 546.857, -4.41992, 738.125, 90.0406, 737.808, 90.4425, 609.51, 98.4819, 608.243, 99.2858, 665.264, 144.707, 663.364, 143.501, 736.541, 190.129, 736.541, 190.531, 548.053 )
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+margin_right = 576.0
+margin_bottom = 100.0
+theme = ExtResource( 28 )
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Load" type="Sprite" parent="UI/HBoxContainer"]
+modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/HBoxContainer"]
+margin_left = 122.0
+margin_right = 402.0
+margin_bottom = 100.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+
+[node name="Zoomout" type="Button" parent="UI/HBoxContainer/MarginContainer2"]
+margin_top = 20.0
+margin_right = 260.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 260, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Zoom out"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer"]
+margin_left = 406.0
+margin_right = 576.0
+margin_bottom = 100.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+
+[node name="Button" type="Button" parent="UI/HBoxContainer/MarginContainer"]
+margin_top = 20.0
+margin_right = 150.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Undo"
+script = ExtResource( 8 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI"]
+margin_left = 1.52588e-05
+margin_top = 1065.0
+margin_right = 576.0
+margin_bottom = 1165.0
+theme = ExtResource( 28 )
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/HBoxContainer2"]
+margin_left = 92.0
+margin_right = 483.0
+margin_bottom = 100.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top Floor" type="Button" parent="UI/HBoxContainer2/MarginContainer2"]
+margin_top = 20.0
+margin_right = 371.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 260, 0 )
+custom_fonts/font = SubResource( 1 )
+text = " Ground Floor "
+script = ExtResource( 13 )
 
 [node name="CheckUI" type="Node2D" parent="."]
 position = Vector2( 0, -1200 )
@@ -787,7 +972,7 @@ max_value = 60.0
 margin_top = 644.0
 margin_right = 576.0
 margin_bottom = 723.0
-theme = SubResource( 8 )
+theme = SubResource( 7 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -798,7 +983,7 @@ margin_left = 138.0
 margin_right = 438.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 300, 0 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "Add Dirt"
 
 [node name="Row Time Left" type="HBoxContainer" parent="Settings"]
@@ -851,7 +1036,7 @@ margin_left = 188.0
 margin_right = 388.0
 margin_bottom = 79.0
 rect_min_size = Vector2( 200, 0 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "Exit"
 
 [node name="Methods" type="Node2D" parent="."]
@@ -872,8 +1057,6 @@ script = ExtResource( 26 )
 [node name="Zoom" type="Node2D" parent="."]
 script = ExtResource( 27 )
 [connection signal="timeout" from="StartDelay" to="." method="_on_StartDelay_timeout"]
-[connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer/MarginContainer2/Zoomout" method="_on_ZoomIn_pressed"]
-[connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Kitchen_hoover" to="GroundFloor/CleaningArea/Kitchen_hoover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Living Room_hover" to="GroundFloor/CleaningArea/Living Room_hover" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Hallway_hoover" to="GroundFloor/CleaningArea/Hallway_hoover" method="_on_LivingRoomHoover_input_event"]
@@ -884,6 +1067,14 @@ script = ExtResource( 27 )
 [connection signal="input_event" from="GroundFloor/CleaningArea/Cooker_clean" to="GroundFloor/CleaningArea/Cooker_clean" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Microwave_clean" to="GroundFloor/CleaningArea/Microwave_clean" method="_on_LivingRoomHoover_input_event"]
 [connection signal="input_event" from="GroundFloor/CleaningArea/Fridge_clean" to="GroundFloor/CleaningArea/Fridge_clean" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="TopFloor/CleaningArea/BathroomFloor" to="TopFloor/CleaningArea/BathroomFloor" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="TopFloor/CleaningArea/Toilet" to="TopFloor/CleaningArea/Toilet" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="TopFloor/CleaningArea/Bath" to="TopFloor/CleaningArea/Bath" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="TopFloor/CleaningArea/Basin" to="TopFloor/CleaningArea/Basin" method="_on_LivingRoomHoover_input_event"]
+[connection signal="input_event" from="TopFloor/CleaningArea/StairsLanding" to="TopFloor/CleaningArea/StairsLanding" method="_on_LivingRoomHoover_input_event"]
+[connection signal="pressed" from="UI/HBoxContainer/MarginContainer2/Zoomout" to="UI/HBoxContainer2/MarginContainer2/Top Floor" method="_on_Zoomout_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/MarginContainer/Button" to="UI/HBoxContainer/MarginContainer/Button" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer2/MarginContainer2/Top Floor" to="UI/HBoxContainer2/MarginContainer2/Top Floor" method="_on_Top_Floor_pressed"]
 [connection signal="gui_input" from="CheckUI/ColorRect" to="CheckUI" method="_on_ColorRect_gui_input"]
 [connection signal="toggled" from="CheckUI/Row mop/HBoxContainer/HooverButton" to="CheckUI" method="_on_HooverButton_toggled"]
 [connection signal="toggled" from="CheckUI/Row mop/HBoxContainer/MopButton" to="CheckUI" method="_on_MopButton_toggled"]
