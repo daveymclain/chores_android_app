@@ -19,3 +19,13 @@ func _on_Top_Floor_pressed():
 		get_node("/root/App/GroundFloor").position = Vector2(0, 0)
 		get_node("/root/App/TopFloor").position = Vector2(1000, 0)
 		ground_floor = true
+
+
+func _on_Zoomout_pressed():
+	print("ground floor = ", ground_floor)
+	if not ground_floor:
+		top_floor_node.scale = Vector2(1,1)
+		top_floor_node.position = Vector2(0,0)
+	else:
+		ground_floor_node.scale = Vector2(1,1)
+		ground_floor_node.position = Vector2(0,0)
