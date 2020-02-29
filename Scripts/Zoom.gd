@@ -11,10 +11,10 @@ func _ready():
 
 func _zoom(node):
 	if not zoomed:
-		ground_floor_node.position = node.zoom_settings["position"]
-		ground_floor_node.scale = node.zoom_settings["scale"]
+		node.get_parent().get_parent().position = node.zoom_settings["position"]
+		node.get_parent().get_parent().scale = node.zoom_settings["scale"]
 		zoomed = true
 	else:
-		ground_floor_node.position = ZOOM_OUT_POSITION
-		ground_floor_node.scale = ZOOM_OUT_SCALE
+		node.get_parent().get_parent().position = ZOOM_OUT_POSITION
+		node.get_parent().get_parent().scale = ZOOM_OUT_SCALE
 		zoomed = false

@@ -6,6 +6,7 @@ var mop_present = false
 var mop_selected = false
 var mop_colour = Color(0, 0, 1)
 var dirt_colour = Color(1, 0, 0)
+onready var UI_node = get_node("/root/App/UI")
 
 func _ready():
 	# Conect to all cleaning tasks click signals
@@ -13,7 +14,7 @@ func _ready():
 		node.connect("clicked", self, "_clicked")
 
 func _clicked(node_number):
-	
+	UI_node.visible = false
 	get_node("/root/App/Server").server_paused = true
 	self.position = Vector2(0, 0)
 	mop_present = false
@@ -92,7 +93,7 @@ func switch_selection(dirt):
 
 func button_toggle(button):
 	var hoover = $"Row mop/HBoxContainer/HooverButton".pressed
-	var mop = $"Row mop/HBoxContainer/MopButton".pressed 
+	var mop = $"Row mop/HBoxContainer/MopButton".pressed
 	
 	if hoover:
 		mop = false
@@ -116,7 +117,7 @@ func _on_ColorRect_gui_input(event):
 
 
 func _on_Settings_pressed():
-	
+	UI_node.visible = true
 	if mop_selected:
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
@@ -126,6 +127,7 @@ func _on_Settings_pressed():
 
 func exit_checkui():
 	# Clean up when leaving menu
+	UI_node.visible = true
 	if mop_selected:
 		Methods.flash_start(node_testing.get_node("Mop"), false)
 	else:
