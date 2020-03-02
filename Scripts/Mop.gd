@@ -6,17 +6,19 @@ export var dirt_limit = 0.8
 export var task_name = "Living room\nMop"
 var ready = false
 var node_number
+var percentage = 0
 
 func _ready():
 	add_to_group("Persist")
 
 func _process(delta):
+
 	if get_node("/root/App").done:
-		var dirt_alpha = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
-				Save.dict_save[node_number]["time_start"], dirt_limit)[0]
-	
+		var dirt_test = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
+				Save.dict_save[node_number]["time_start"], dirt_limit)
+		percentage = dirt_test[1]
 		if not self.has_node("Flash"):
-			modulate.a = dirt_alpha
+			self.modulate.a = dirt_test[0]
 
 func save():
 	var save_dict = {

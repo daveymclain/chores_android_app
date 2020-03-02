@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=7 format=2]
 
 [ext_resource path="res://Fonts/RussoOne-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://stylebox_selected.tres" type="StyleBox" id=2]
@@ -6,6 +6,12 @@
 [sub_resource type="DynamicFont" id=1]
 size = 60
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.788235, 0.819608, 0.827451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0.564706, 0.619608, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
@@ -25,3 +31,8 @@ Button/styles/focus = null
 Button/styles/hover = ExtResource( 2 )
 Button/styles/normal = ExtResource( 2 )
 Button/styles/pressed = null
+ProgressBar/colors/font_color = Color( 0, 0, 0, 1 )
+ProgressBar/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+ProgressBar/fonts/font = null
+ProgressBar/styles/bg = SubResource( 3 )
+ProgressBar/styles/fg = SubResource( 4 )

@@ -7,6 +7,7 @@ var mop_selected = false
 var mop_colour = Color(0, 0, 1)
 var dirt_colour = Color(1, 0, 0)
 onready var UI_node = get_node("/root/App/UI")
+onready var percentage_bar = $RowBar/ProgressBar
 
 func _ready():
 	# Conect to all cleaning tasks click signals
@@ -36,6 +37,8 @@ func _clicked(node_number):
 	
 	$"Row 1/CheckLabel".text = node_testing.task_name
 	Methods.flash_start(node_testing.get_node("Dirt"), true)
+	percentage_bar.value = node_testing.percentage
+	
 	
 
 
@@ -85,25 +88,13 @@ func switch_selection(dirt):
 	
 	if mop_present:
 		if dirt:
+			percentage_bar.value = node_testing.percentage
 			Methods.flash_start(node_testing.get_node("Mop"), false)
 			Methods.flash_start(node_testing.get_node("Dirt"), true)
 		else:
+			percentage_bar.value = node_testing.get_node("Mop").percentage
 			Methods.flash_start(node_testing.get_node("Dirt"), false)
 			Methods.flash_start(node_testing.get_node("Mop"), true)
-
-func button_toggle(button):
-	var hoover = $"Row mop/HBoxContainer/HooverButton".pressed
-	var mop = $"Row mop/HBoxContainer/MopButton".pressed
-	
-	if hoover:
-		mop = false
-	else:
-		mop = true
-		
-	if mop:
-		hoover = false
-	else:
-		hoover = true
 
 
 
