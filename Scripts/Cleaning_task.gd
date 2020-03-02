@@ -81,12 +81,13 @@ func _timer_callback():
 
 func save():
 	var save_dict = {
+		"name" : self.name,
 		"node" : self,
+		"time_start" : time_start,
 		"clean_frequency" : clean_frequency,
 		"frequency_save" : 0,
-		"time_start" : time_start,
 		"override" : false,
-		"name" : self.name
+		"override_time" : 0
 	}
 	return save_dict
 

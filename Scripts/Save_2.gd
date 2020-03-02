@@ -17,13 +17,6 @@ func load_save():
 # convert string names from save file into node ojects
 	for i in save_nodes:
 		print("node number=", i.node_number)
-#		if int(dict_save["node_number"] < i.node_number):
-#			dict_save[i.node_number]["node"] = i
-#		else:
-#			print("new node added")
-#			dict_save[i.node_number] = i.call("save")
-#			continue
-		
 		
 		if i.node_number in dict_save.keys():
 			dict_save[i.node_number]["node"] = i

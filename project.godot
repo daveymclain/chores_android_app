@@ -22,9 +22,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Methods="*res://Scripts/Methods.gd"
-Undo="*res://Scripts/Undo.gd"
 Save="*res://Scripts/Save_2.gd"
 Temp="*res://Scripts/Temp.gd"
+Undo="*res://Scripts/Undo.gd"
 
 [display]
 
