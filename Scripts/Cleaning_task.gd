@@ -21,7 +21,7 @@ export var clean_frequency = {"days" : 0, "hours" : 0, "mins" : 1, "secs" : 0}
 onready var dirt_node = self.get_node("Dirt")
 
 var time_start = 0
-
+var percentage = 0
 var node_check = null
 
 var ready = false
@@ -35,11 +35,11 @@ func _ready():
 func _process(delta):
 
 	if get_node("/root/App").done:
-		var dirt_alpha = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
-				Save.dict_save[node_number]["time_start"], dirt_limit)[0]
-	
+		var dirt_test = Methods.dirt_test(Save.dict_save[node_number]["clean_frequency"], 
+				Save.dict_save[node_number]["time_start"], dirt_limit)
+		percentage = dirt_test[1]
 		if not $Dirt.has_node("Flash"):
-			dirt_node.modulate.a = dirt_alpha
+			dirt_node.modulate.a = dirt_test[0]
 
 # warning-ignore:unused_argument
 # warning-ignore:unused_argument

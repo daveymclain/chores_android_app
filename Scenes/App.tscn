@@ -585,6 +585,7 @@ __meta__ = {
 
 [node name="Load" type="Sprite" parent="UI/HBoxContainer"]
 modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 10.538 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 24 )
 centered = false
@@ -791,6 +792,27 @@ margin_right = 576.0
 margin_bottom = 652.138
 custom_constants/separation = 16
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RowBar" type="HBoxContainer" parent="CheckUI"]
+margin_top = 20.0
+margin_right = 576.0
+margin_bottom = 93.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="CheckUI/RowBar"]
+margin_left = 63.0
+margin_right = 513.0
+margin_bottom = 73.0
+rect_min_size = Vector2( 450, 50 )
+theme = ExtResource( 28 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+value = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

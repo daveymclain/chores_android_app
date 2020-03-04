@@ -143,6 +143,8 @@ func update_from_server(server_data):
 	else:
 		print("finished updating from server")
 		send_key_list_count = 0
+		print("saving to local")
+		Save.save()
 		server_message = {"message" : "check"}
 
 
