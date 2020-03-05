@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Sprites/3d/table_3d.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Cleaning_task.gd" type="Script" id=2]
@@ -39,6 +39,7 @@
 [ext_resource path="res://Sprites/3d/UpStairs/bath.png" type="Texture" id=37]
 [ext_resource path="res://Sprites/3d/UpStairs/basin.png" type="Texture" id=38]
 [ext_resource path="res://Sprites/3d/UpStairs/stairs and landing.png" type="Texture" id=39]
+[ext_resource path="res://Scripts/Link.gd" type="Script" id=40]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -264,6 +265,9 @@ centered = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundFloor/CleaningArea/Stairs_hoover"]
 position = Vector2( -1.88937, 0 )
 polygon = PoolVector2Array( 152.578, 587.363, 224.346, 587.648, 224.346, 747.131, 155.711, 747.701 )
+
+[node name="Link" type="Node2D" parent="GroundFloor/CleaningArea/Stairs_hoover"]
+script = ExtResource( 40 )
 
 [node name="Sofa_puff" type="Area2D" parent="GroundFloor/CleaningArea"]
 script = ExtResource( 2 )
@@ -572,6 +576,11 @@ position = Vector2( 197.638, -63.7116 )
 scale = Vector2( 0.78505, 0.996126 )
 polygon = PoolVector2Array( 2.81042, 548.486, -6.83923, 546.857, -4.41992, 738.125, 90.0406, 737.808, 90.4425, 609.51, 98.4819, 608.243, 99.2858, 665.264, 144.707, 663.364, 143.501, 736.541, 190.129, 736.541, 190.531, 548.053 )
 
+[node name="Link" type="Node2D" parent="TopFloor/CleaningArea/StairsLanding"]
+position = Vector2( -1000, 0 )
+script = ExtResource( 40 )
+link_node_number = "6"
+
 [node name="UI" type="Node2D" parent="."]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
@@ -591,8 +600,8 @@ texture = ExtResource( 24 )
 centered = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI/HBoxContainer"]
-margin_left = 122.0
-margin_right = 402.0
+margin_left = 296.0
+margin_right = 576.0
 margin_bottom = 100.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -606,13 +615,15 @@ custom_fonts/font = SubResource( 1 )
 text = "Zoom out"
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/HBoxContainer"]
-margin_left = 406.0
+visible = false
+margin_left = 556.0
 margin_right = 576.0
 margin_bottom = 100.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 
 [node name="Button" type="Button" parent="UI/HBoxContainer/MarginContainer"]
+visible = false
 margin_top = 20.0
 margin_right = 150.0
 margin_bottom = 100.0

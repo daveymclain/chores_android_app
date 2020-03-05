@@ -49,9 +49,15 @@ func _on_Yes_pressed():
 	else:
 		Save.dict_save[node_numbers]["time_start"] = OS.get_unix_time()
 #	Undo.add_input([node_testing, node_testing.time_start])
+	if node_testing.has_node("Link"):
+		print("link_update")
+		var link_node_number = node_testing.get_node("Link").link_node_number
+		Save.dict_save[link_node_number]["start_time"] = Save.dict_save[node_numbers]["time_start"]
+	
 	exit_checkui()
 	Save.save()
 	Save.dict_save[node_numbers]["override"] = false
+	
 	
 	
 func _on_No_pressed():

@@ -4,6 +4,8 @@ var node = null
 var node_number
 var changed = false
 var changed_delay = false
+var linked_node_number = 0
+var linked = false
 
 func _process(delta):
 	if not node == null:
@@ -31,6 +33,11 @@ func _on_Settings_pressed():
 	find_node("MinsText").text = str(Save.dict_save[node_number]["clean_frequency"]["mins"])
 	find_node("MinsSlider").value = Save.dict_save[node_number]["clean_frequency"]["mins"]
 	changed_delay = true
+	if node.node_testing.has_node("Link"):
+		linked_node_number = node.node_testing.get_node("Link").link_node_number
+		linked = true
+	else:
+		linked = false
 
 func _on_DaySlider_value_changed(value):
 	Save.dict_save[node_number]["clean_frequency"]["days"] = int(value)
@@ -38,6 +45,7 @@ func _on_DaySlider_value_changed(value):
 	find_node("DaysText").text = str(value)
 	if changed_delay:
 		changed = true
+	linked("clean_frequency", "days")
 
 
 func _on_HoursSlider_value_changed(value):
@@ -46,6 +54,7 @@ func _on_HoursSlider_value_changed(value):
 	find_node("HoursText").text = str(value)
 	if changed_delay:
 		changed = true
+	linked("clean_frequency", "hours")
 
 func _on_MinsSlider_value_changed(value):
 	Save.dict_save[node_number]["clean_frequency"]["mins"] = int(value)
@@ -79,3 +88,14 @@ func _on_Add_Dirt_pressed():
 	Save.dict_save[node_number]["time_start"] -= 3600
 	Save.dict_save[node_number]["override"] = true
 	Save.save()
+	linked("time_start")
+	linked("override")
+	
+func linked(feild, feild2=null):
+	if linked:
+		print("linked update")
+		if feild2:
+			Save.dict_save[linked_node_number][feild][feild2] = Save.dict_save[node_number][feild][feild2]
+		else:
+			Save.dict_save[linked_node_number][feild] = Save.dict_save[node_number][feild]
+			

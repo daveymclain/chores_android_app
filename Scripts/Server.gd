@@ -45,28 +45,28 @@ func _process(delta):
 				var staging = to_json(server_message)
 				var package = staging.to_ascii()
 				socket.put_packet(package)
-				print("send!")
+#				print("send!")
 				# time out
 				count_send += 1
 				cron_sync += 0.5
 				if count_send == send_trys:
-					print_debug("Server not responding after %d tries" % send_trys)
+#					print_debug("Server not responding after %d tries" % send_trys)
 					cron_sync = retry_interval 
 					count_send = 0
 					node_load.modulate = colour_blue
 
 		if socket.get_available_packet_count() > 0:
 			var array_bytes = socket.get_packet()
-			print("msg from server: " + array_bytes.get_string_from_ascii())
+#			print("msg from server: " + array_bytes.get_string_from_ascii())
 #			/time_check(array_bytes.get_string_from_ascii())
 			check_server_sync(array_bytes.get_string_from_ascii())
 			count_send = 0
 
 
 func check_server_sync(server_dict):
-	print(server_dict)
+#	print(server_dict)
 	server_dict = parse_json(server_dict)
-	print(server_dict)
+#	print(server_dict)
 	var message_from_server = server_dict["message"]
 	if message_from_server == "sending":
 		update_from_server(server_dict)
@@ -75,13 +75,13 @@ func check_server_sync(server_dict):
 		var client_save_time = Save.dict_save["save_time"]
 		
 		if client_save_time == server_time:
-			print("server and client is upto date")
+#			print("server and client is upto date")
 			cron_sync = sync_interval
 			server_message = {"message" : "check"}
 			node_load.modulate = colour_green
 			
 		elif client_save_time > server_time:
-			print("server is out of date")
+#			print("server is out of date")
 			if len(send_key_list) == 0:
 				send_key_list = dict_key_list(Save.dict_save)
 			if send_key_list_count <= len(send_key_list)-1:
@@ -95,21 +95,21 @@ func check_server_sync(server_dict):
 			node_load.modulate = colour_blue
 			
 		elif client_save_time < server_time:
-			print("Client is out of date")
+#			print("Client is out of date")
 			var client_dict = Save.dict_save
 			if len(send_key_list) == 0:
-				print("making list")
-				print("list length = ")
+#				print("making list")
+#				print("list length = ")
 				send_key_list = dict_key_list(client_dict)
 			if send_key_list_count <= len(send_key_list):
-				print(send_key_list_count)
+#				print(send_key_list_count)
 				var send_key = send_key_list[send_key_list_count]
 				send_key_list_count += 1
 				server_message = {"message" : "send", "key" : send_key, "data": client_dict[send_key]}
 				cron_sync = 0
 				node_load.modulate = colour_yellow
 			else:
-				print("Finished sending update to server")
+#				print("Finished sending update to server")
 				send_key_list_count = 0
 				server_message = {"message" : "check"}
 			cron_sync = 0
@@ -117,33 +117,33 @@ func check_server_sync(server_dict):
 
 
 func update_from_server(server_data):
-	print("updating from server...")
+#	print("updating from server...")
 	var client_dict = Save.dict_save
 	var key_check = server_data["key"]
 	if not key_check == "save_time":
 		for i in client_dict[key_check].keys():
 			if i == "node" or i == "name":
 				continue
-			print("update key = ",i)
+#			print("update key = ",i)
 			client_dict[key_check][i] = server_data["data"][i]
 	else:
 		client_dict[key_check] = server_data["data"]
 	Save.dict_save = client_dict
 	if len(send_key_list) == 0:
-		print("making list")
-		print("list length = ")
+#		print("making list")
+#		print("list length = ")
 		send_key_list = dict_key_list(client_dict)
 	if send_key_list_count <= len(send_key_list)-1:
-		print(send_key_list_count)
+#		print(send_key_list_count)
 		var send_key = send_key_list[send_key_list_count]
 		send_key_list_count += 1
 		server_message = {"message" : "send", "key" : send_key}
 		cron_sync = 0
 		node_load.modulate = colour_yellow
 	else:
-		print("finished updating from server")
+#		print("finished updating from server")
 		send_key_list_count = 0
-		print("saving to local")
+#		print("saving to local")
 		Save.save()
 		server_message = {"message" : "check"}
 
