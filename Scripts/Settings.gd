@@ -87,9 +87,9 @@ func _on_Add_Dirt_pressed():
 # take an hour of time_start
 	Save.dict_save[node_number]["time_start"] -= 3600
 	Save.dict_save[node_number]["override"] = true
-	Save.save()
 	linked("time_start")
 	linked("override")
+	changed = true
 	
 func linked(feild, feild2=null):
 	if linked:
